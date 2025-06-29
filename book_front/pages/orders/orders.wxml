@@ -1,0 +1,59 @@
+<view class='Pagetitle'>
+  <text>{{navbarTitle}}</text>
+</view>
+
+<block >
+  <view class='order' wx:for="{{orders}}" wx:key='item' >
+    <view class='heade'>
+      <text>订单号:{{item.id}}</text>
+      <block wx:if='{{item.status == -1}}'>
+        <text class='status'>已退货</text>
+      </block>
+     
+      <block wx:elif='{{item.status == 0}}'>
+        <text class='status'>未支付</text>
+      </block>
+
+       <block wx:elif='{{item.status == 1}}'>
+        <text class='status'>已支付未发货</text>
+      </block>
+      <block wx:elif='{{item.status == 2}}'>
+        <text class='status'>已发货</text>
+      </block>
+        <block wx:elif='{{item.status == 3}}'>
+        <text class='status'>完成</text>
+      </block>
+    </view>
+
+    <view class='productInfo'>
+       <image src='{{appInstance.globalData.host + "img/goods/" + item.good.images}}'></image>
+      <view class='titleAndPrice'>
+        <text class='title'>{{item.good.goodName}}</text>
+        <text class='price'>￥{{item.price}}</text>
+      </view>
+    </view>
+    <view class='detail'>
+      <view class='total'>
+        <text>总价:￥{{item.price}}</text>
+      </view>
+      <view class='ordertime'>
+        <text>下单时间{{item.ordertime}}</text>
+      </view>
+    </view>
+
+    <view class='go'>
+     <block wx:if='{{item.status == 0}}'>
+          <button class='confirmReceive' data-orderId='{{item.id}}'    bindtap='topay' data-index="{{index}}" >付款</button> 
+        </block>
+       
+        <block wx:if='{{item.status == 2}}'>
+          <button class='confirmReceive' data-orderId="{{item.id}}"  bindtap='confirmReceive' data-index="{{index}}" >收货</button> 
+        </block>
+
+      </view>
+  </view>
+</block>
+
+
+
+   

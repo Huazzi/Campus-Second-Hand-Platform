@@ -1,0 +1,31 @@
+<!-- pages/update_userInfo/addr/addr.wxml -->
+<view class="container">
+  <view class="form-card">
+    <form bindsubmit="updateAddr">
+      <view class="form-group">
+        <text class="form-label">收货地址</text>
+        <input 
+          type="text" 
+          name="address" 
+          maxlength="30" 
+          placeholder="请输入详细地址（如街道、门牌号等）"
+          placeholder-class="placeholder"
+          value="{{appInstance.globalData.userInfo.address}}"
+          class="form-input"
+        />
+      </view>
+      
+      <button 
+        form-type="submit" 
+        class="submit-btn"
+        hover-class="submit-btn-hover"
+      >
+        保存地址
+      </button>
+    </form>
+  </view>
+  
+  <view class="tips">
+    <text>请确保地址准确无误，以便商品能准确送达</text>
+  </view>
+</view>

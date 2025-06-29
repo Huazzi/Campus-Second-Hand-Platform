@@ -1,0 +1,33 @@
+<view class='about-container'>
+  <view class='header-section'>
+    <image class='logo' src='/image/二货.jpg' mode='aspectFit'></image>
+    <view class='title'>校园二手交易平台</view>
+    <view class='version'>v1.0</view>
+  </view>
+  
+  <view class='contact-section'>
+    <view class='contact-card'>
+      <view class='contact-item'>
+        <image class='contact-icon' src='/image/qq.png'></image>
+        <view class='contact-info'>
+          <view class='contact-label'>QQ交流</view>
+          <view class='contact-value'>1512606036</view>
+        </view>
+      </view>
+      
+      <view class='divider'></view>
+      
+      <view class='contact-item'>
+        <image class='contact-icon' src='/image/at.png'></image>
+        <view class='contact-info'>
+          <view class='contact-label'>反馈邮箱</view>
+          <view class='contact-value'>1512606036@qq.com</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class='footer-section'>
+    <view class='copyright'>Copyright © 2025 校园二手交易平台</view>
+  </view>
+</view>

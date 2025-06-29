@@ -1,0 +1,51 @@
+@layout("/common/head.html"){
+<body>
+<div class="layui-card-header">
+    <button class="layui-btn layui-btn-danger" onclick="gen()"><i class="layui-icon"></i>生成</button>
+</div>
+<input type="hidden" id="tableId" name="tableId" value="${genTable.id}"/>
+<table class="layui-table layui-form" id="genTable">
+    <thead>
+    <tr>
+        <th>字段名称</th>
+        <th>字段注释</th>
+        <th>数据库类型</th>
+        <th>Java类型</th>
+        <th>是否主键</th>
+        <th>插入</th>
+        <th>编辑</th>
+        <th>查询</th>
+        <th>列表</th>
+        <th>必填</th>
+        <th>html类型</th>
+        <th>字典</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for(column in columns){
+    <tr>
+        <td>${column['name']}</td>
+        <td>${column['comment']}</td>
+        <td>${column['dbType']}</td>
+        <td>${column['javaType']}</td>
+        <td>
+            @if(column['keyFlag']){
+            是
+            @}else{
+            否
+            @}
+        </td>
+        <td><input type="checkbox" name="ck" value="0" lay-filter="ck" lay-skin="primary"></td>
+        <td><input type="checkbox" name="ck" value="0" lay-filter="ck" lay-skin="primary"></td>
+        <td><input type="checkbox" name="ck" value="0" lay-filter="ck" lay-skin="primary"></td>
+        <td><input type="checkbox" name="ck" value="0" lay-filter="ck" lay-skin="primary"></td>
+        <td><input type="checkbox" name="ck" value="0" lay-filter="ck" lay-skin="primary"></td>
+        <td><#selectSearch id="ee" name="ee" selectName="元素选择" dictType="htmlType"/></td>
+        <td><input type="text" class="layui-input"></td>
+    </tr>
+    @}
+    </tbody>
+</table>
+<script src="${ctxPath}/static/modules/gen/table/gen.js"></script>
+</body>
+@}

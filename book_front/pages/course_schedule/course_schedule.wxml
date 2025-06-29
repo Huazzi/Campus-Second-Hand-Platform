@@ -1,0 +1,184 @@
+<!--pages/course_schedule/course_schedule.wxml-->
+<view class="course-schedule">
+  <!-- 学期和周数选择 -->
+  <view class="header">
+    <picker mode="selector" range="{{semesters}}" value="{{currentSemesterIndex}}" bindchange="changeSemester">
+      <view class="semester-picker">{{semesters[currentSemesterIndex]}}</view>
+    </picker>
+    <!-- 添加周数选择器 -->
+    <picker mode="selector" range="{{weeks}}" value="{{currentWeek-1}}" bindchange="changeWeek">
+      <view class="week-picker">第{{currentWeek}}周</view>
+    </picker>
+  </view>
+
+  <!-- 学期提醒 -->
+  <view class="semester-reminder" wx:if="{{hasUpcomingSemesterReminder}}">
+    <view class="reminder-content">
+      <text class="reminder-icon">📚</text>
+      <text class="reminder-text">新学期将于{{upcomingSemesterDate}}开始，建议提前准备教材</text>
+      <button class="reminder-btn" bindtap="loadServerRecommendations">查看推荐</button>
+    </view>
+  </view>
+
+  <!-- 课程表格 -->
+  <view class="schedule-grid">
+    <!-- 时间列 -->
+    <view class="time-column">
+      <view class="time-slot" wx:for="{{timeSlots}}" wx:key="index">
+        <text>第{{index + 1}}节</text>
+        <text>{{item}}</text>
+      </view>
+    </view>
+    
+    <!-- 课程网格 -->
+    <view class="course-grid">
+      <!-- 星期行 -->
+      <view class="weekday-row">
+        <view class="weekday" wx:for="{{weekdays}}" wx:key="index">{{item}}</view>
+      </view>
+      
+      <!-- 课程单元格 -->
+      <view class="course-cells">
+        <!-- 使用 displayedCourses进行渲染 -->
+        <view class="course-item"
+              wx:for="{{displayedCourses}}"
+              wx:for-item="courseItem"
+              wx:key="id"
+              style="position: absolute; top: {{courseItem.styleTop}}px; left: {{courseItem.styleLeft}}%; height: {{courseItem.styleHeight}}px; width: {{courseItem.styleWidth}}%; background-color: {{courseItem.color}}; box-sizing: border-box;"
+              bindtap="showCourseDetail"
+              data-course="{{courseItem}}">
+          <text class="course-name">{{courseItem.name}}</text>
+          <text class="course-location">@{{courseItem.location}}</text>
+          <!-- 可以根据需要添加更多课程信息，例如教师 -->
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 智能教材推荐 -->
+  <view class="smart-recommendations-container">
+    <view class="recommendation-header">
+      <view class="recommendation-title">
+        <text class="title-icon">📖</text>
+        <text>教材智能推荐</text>
+      </view>
+      <view class="view-all" bindtap="viewAllRecommendations" wx:if="{{smartRecommendedBooks.length > 0}}">
+        查看全部 >
+      </view>
+    </view>
+    
+    <view wx:if="{{isLoadingRecommendations}}" class="loading-tip">推荐加载中...</view>
+    <block wx:elif="{{uniqueTextbookNamesCount > 0}}">      <scroll-view scroll-x="true" class="recommended-books-scroll" wx:if="{{smartRecommendedBooks.length > 0}}" style="height: 280px;">
+        <block wx:for="{{smartRecommendedBooks}}" wx:key="bookId" wx:for-item="book">
+          <view class="recommended-book-item {{book.bookId ? 'clickable' : 'disabled'}}" 
+                bindtap="{{book.bookId ? 'viewBookDetail' : ''}}" 
+                data-id="{{book.bookId}}"
+                style="padding: 10px; width: 180px;">
+            <image class="book-image" 
+                   src="{{book.images[0] || '/images/default_cover.png'}}" 
+                   mode="aspectFit"
+                   style="width: 100px; height: 100px; display: block; margin: 0 auto 10px;"></image>
+            <view class="book-info">
+              <view class="book-name" style="height: 40px; margin-bottom: 8px;">{{book.goodname}}</view>
+              <view class="book-price" style="color: #e4393c; font-size: 16px; font-weight: bold;">¥{{book.price || '价格未知'}}</view>
+              <view class="book-owner" wx:if="{{book.courseName}}" style="font-size: 12px; color: #666;">课程: {{book.courseName}}</view>
+              <view class="book-id" style="font-size: 10px; color: #999;">ID: {{book.bookId || '无效'}}</view>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+      <view wx:else class="no-recommendations-tip">
+        <text>暂未找到您课程相关教材的二手书信息</text>
+        <button class="add-book-btn" bindtap="navigateToAddGood">出售我的教材</button>
+      </view>
+    </block>
+    <view wx:else class="empty-textbook-tip">
+      <text>请在课程中添加教材信息，以获取智能推荐</text>
+      <button class="add-course-btn" bindtap="addCourse">添加课程</button>
+    </view>
+  </view>
+
+  <!-- 修改添加/编辑课程表单弹窗 -->
+  <view class="modal {{showAddCourseForm ? 'show' : ''}}" wx:if="{{showAddCourseForm}}" catchtap="closeAddCourseForm">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text>{{isEdit ? '编辑课程' : '添加课程'}}</text>
+        <view class="close-btn" bindtap="closeAddCourseForm">×</view>
+      </view>
+      <view class="form-container">
+        <form bindsubmit="submitCourseForm">
+          <view class="form-item">
+            <text>课程名称：</text>
+            <input name="name" value="{{editingCourse.name}}" placeholder="请输入课程名称"/>
+          </view>
+          <view class="form-item">
+            <text>教师：</text>
+            <input name="teacher" value="{{editingCourse.teacher}}" placeholder="请输入教师姓名"/>
+          </view>
+          <view class="form-item">
+            <text>上课地点：</text>
+            <input name="location" value="{{editingCourse.location}}" placeholder="请输入上课地点"/>
+          </view>
+          <view class="form-item">
+            <text>星期：</text>
+            <picker mode="selector" range="{{weekdays}}" value="{{editingCourse.day-1}}" bindchange="dayChange">
+              <view class="picker-text">{{weekdays[editingCourse.day-1]}}</view>
+            </picker>
+          </view>
+          <view class="form-item">
+            <text>开始节次：</text>
+            <picker mode="selector" range="{{timeSlots}}" value="{{editingCourse.startSection-1}}" bindchange="startSectionChange">
+              <!-- 为了显示节次数字而不是时间范围，可以创建一个节次数组 -->
+              <view class="picker-text">第{{editingCourse.startSection}}节</view>
+            </picker>
+          </view>
+          <view class="form-item">
+            <text>持续节数：</text>
+            <picker mode="selector" range="{{[1,2,3,4]}}" value="{{editingCourse.duration-1}}" bindchange="durationChange">
+              <view class="picker-text">{{editingCourse.duration}}节</view>
+            </picker>
+          </view>
+          <view class="form-item">
+            <text>周次：</text>
+            <input name="weeks" value="{{editingCourse.weeks}}" placeholder="如：1-16 或 1,3,5-10"/>
+          </view>
+          <view class="form-item">
+            <text>教材：</text>
+            <input name="textbook" value="{{editingCourse.textbook}}" placeholder="请输入教材名称"/>
+          </view>
+          <button form-type="submit" type="primary">保存</button>
+        </form>
+      </view>
+    </view>
+  </view>
+
+  <!-- 课程详情弹窗 -->
+  <view class="modal {{showCourseDetail ? 'show' : ''}}" wx:if="{{showCourseDetail}}" catchtap="closeCourseDetail">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text>课程详情</text>
+        <view class="close-btn" bindtap="closeCourseDetail">×</view>
+      </view>
+      <view class="course-detail">
+        <view><text class="detail-label">课程：</text>{{selectedCourse.name}}</view>
+        <view><text class="detail-label">教师：</text>{{selectedCourse.teacher || '未填写'}}</view>
+        <view><text class="detail-label">地点：</text>{{selectedCourse.location}}</view>
+        <view><text class="detail-label">时间：</text>{{weekdays[selectedCourse.day-1]}} 第{{selectedCourse.startSection}}-{{selectedCourse.startSection+selectedCourse.duration-1}}节</view>
+        <view><text class="detail-label">周次：</text>{{selectedCourse.weeks}}</view>
+        <view><text class="detail-label">教材：</text>{{selectedCourse.textbook || '未设置'}}</view>
+        <view class="button-group">
+          <button type="primary" bindtap="editCourse">编辑</button>
+          <button type="warn" bindtap="deleteCourse">删除</button>
+          <button type="default" bindtap="viewTextbook" wx:if="{{selectedCourse.textbook}}">相关教材</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作按钮 -->
+  <view class="bottom-buttons">
+    <button class="action-btn primary" bindtap="addCourse">添加课程</button>
+    <button class="action-btn" bindtap="importCourse">导入课程</button>
+    <!-- <button class="action-btn" bindtap="exportCourse">导出课程</button> -->
+  </view>
+</view>

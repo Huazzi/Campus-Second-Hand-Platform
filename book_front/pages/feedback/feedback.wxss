@@ -1,0 +1,77 @@
+/* pages/feedback/feedback.wxss */
+
+page {
+  background-color: #f5f7fa;
+  padding: 30rpx;
+  box-sizing: border-box; /* 新增 */
+}
+
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box; /* 新增 */
+}
+
+.feedback-card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden; /* 确保圆角不溢出 */
+  width: 100%; /* 新增 */
+  box-sizing: border-box; /* 新增 */
+}
+
+.input-group {
+  padding: 0 30rpx;
+  box-sizing: border-box; /* 新增 */
+  width: 100%; /* 新增 */
+}
+
+.feedback-textarea {
+  width: 100%;
+  min-height: 200rpx;
+  padding: 28rpx 0;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+  box-sizing: border-box; /* 新增 */
+}
+
+
+.contact-input {
+  width: 100%;
+  height: 100rpx;
+  font-size: 30rpx;
+  color: #333;
+  padding: 28rpx 0;
+  box-sizing: border-box; /* 新增 */
+}
+
+.divide-line {
+  height: 1rpx;
+  background-color: #f0f0f0;
+  margin: 10rpx 0;
+}
+
+.placeholder-style {
+  color: #c0c4cc;
+  font-size: 30rpx;
+}
+
+.submit-btn {
+  margin-top: 50rpx;
+  background-color: #7b5be4;
+  color: white;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  box-shadow: 0 8rpx 20rpx rgba(123, 91, 228, 0.3);
+  transition: all 0.3s ease;
+}
+
+.submit-btn:active {
+  background-color: #6a4fd1;
+  transform: scale(0.98);
+}

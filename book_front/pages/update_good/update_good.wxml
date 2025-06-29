@@ -1,0 +1,79 @@
+<view class='container'>
+  <form bindsubmit='addGood'>
+    <view class='form-card'>
+      <!-- 商品名称和描述部分 -->
+      <view class='section'>
+        <text class='section-title'>商品信息</text>
+        <view class='input-group'>
+          <input name="goodName" placeholder='标题/品类/品牌号' class='input-field'></input>
+          <view class='divider-light'></view>
+          <textarea name="description" placeholder='描述一下宝贝的细节或故事' class='textarea-field' maxlength='100'></textarea>
+          <view class='char-counter'>{{descriptionLength}}/100</view>
+        </view>
+      </view>
+      
+      <!-- 图片上传部分 -->
+      <view class='section'>
+        <text class='section-title'>上传图片</text>
+        <view class='image-uploader'>
+          <block wx:for='{{goodImgs}}' wx:key='*this'>
+            <view class='image-preview'>
+              <image src='{{item}}' class='preview-image'></image>
+              <image src='/image/close.png' bindtap='removeImage' data-index='{{index}}' class='remove-icon'></image>
+            </view>
+          </block>
+          <view class='upload-btn' bindtap='chooseImg' wx:if='{{goodImgs.length < 9}}'>
+            <image src='/image/plus.png' class='plus-icon'></image>
+            <text>添加图片</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 价格信息部分 -->
+      <view class='section'>
+        <text class='section-title'>价格信息</text>
+        <view class='form-item'>
+          <text class='item-label'>售价</text>
+          <view class='price-input'>
+            <text class='currency-symbol'>¥</text>
+            <input name="price" type='digit' placeholder='0.00' maxlength='4' class='input-price'></input>
+          </view>
+        </view>
+        <view class='divider'></view>
+        
+        <view class='form-item'>
+          <text class='item-label'>原价</text>
+          <view class='price-input'>
+            <text class='currency-symbol'>¥</text>
+            <input name="foreprice" type='digit' placeholder='0.00' maxlength='4' class='input-price'></input>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 商品分类和交易方式部分 -->
+      <view class='section'>
+        <text class='section-title'>商品详情</text>
+        <view class='form-item'>
+          <text class='item-label'>商品分类</text>
+          <picker bindchange='changeCatagory' mode='selector' value='{{index}}' range='{{catagoryList}}'>
+            <view class='picker'>
+              {{catagoryList[index] || '请选择分类'}}
+              <text class='arrow-icon'>›</text>
+            </view>
+          </picker>
+        </view>
+        <view class='divider'></view>
+        
+        <view class='form-item'>
+          <text class='item-label'>交易方式</text>
+          <input name="method" class='input-field'></input>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 提交按钮 -->
+    <view class='submit-area'>
+      <button form-type='submit' class='submit-btn'>确定发布</button>
+    </view>
+  </form>
+</view>

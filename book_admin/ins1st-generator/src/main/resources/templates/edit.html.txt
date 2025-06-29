@@ -1,0 +1,44 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+        <%for(field in map["gens"]){%>
+        <%if(field.keyFlag){%>
+            <input type="hidden" id="${field.camel}" name="${field.camel}" value="\${${map["entityP"]}.${field.camel}}"/>
+        <%}else{%>
+            <%if(field.isEdit){%>
+                <%if(isNotEmpty(field.htmlType)){%>
+                    <%if(field.htmlType == "1"){%>
+                        <%if(field.isRequired){
+                            println('<#input inputName="'+field.comment+'" id="'+field.camel+'" name="'+field.camel+'" value="${'+map["entityP"]+'.'+field.camel+'}" required="required"/>');
+                        }else{
+                            println('<#input inputName="'+field.comment+'" id="'+field.camel+'" name="'+field.camel+'" value="${'+map["entityP"]+'.'+field.camel+'}"/>');
+                        }%>
+                    <%}%>
+                    <%if(field.htmlType == "2"){%>
+                        <%if(field.isRequired){
+                            println('<#select selectName="'+field.comment+'" id="'+field.camel+'" name="'+field.camel+'" dictType="'+field.dictType+'" value="${'+map["entityP"]+'.'+field.camel+'}" required="required"/>');
+                        }else{
+                            println('<#select selectName="'+field.comment+'" id="'+field.camel+'" name="'+field.camel+'" value="${'+map["entityP"]+'.'+field.camel+'}" dictType="'+field.dictType+'"/>');
+                        }%>
+                    <%}%>
+                    <%if(field.htmlType == "3"){%>
+                        <%if(field.isRequired){
+                            println('<#time timeName="'+field.comment+'" id="'+field.camel+'" name="'+field.camel+'" value="${'+map["entityP"]+'.'+field.camel+'}" required="required"/>');
+                        }else{
+                            println('<#time timeName="'+field.comment+'" id="'+field.camel+'" name="'+field.camel+'" value="${'+map["entityP"]+'.'+field.camel+'}"/>');
+                        }%>
+                    <%}%>
+                <%}%>
+            <%}%>
+        <%}%>
+        <%}%>
+        <%
+                    print('<#button btName="修改'+map["bizName"]+'" filter="edit"/>');
+                %>
+</form>
+<script src="\${ctxPath}/static/modules/${map["moduleName"]}/${map["bizName"]}/${map["bizName"]}_edit.js"></script>
+</body>
+@}

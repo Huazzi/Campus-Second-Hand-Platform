@@ -1,0 +1,27 @@
+<!-- pages/update_userInfo/phone/phone.wxml -->
+<view class="container">
+  <view class="form-card">
+    <form bindsubmit='updatePhone'>
+      <view class="form-group">
+        <text class="form-label">手机号码</text>
+        <input 
+          type='text' 
+          name="phone" 
+          maxlength='11' 
+          placeholder='请输入手机号码' 
+          placeholder-class="placeholder"
+          value='{{appInstance.globalData.userInfo.mobilePhone}}'
+          class="form-input"
+        ></input>
+      </view>
+      
+      <button 
+        form-type='submit' 
+        class="submit-btn"
+        hover-class="submit-btn-hover"
+      >
+        保存手机号码
+      </button>
+    </form>
+  </view>
+</view>

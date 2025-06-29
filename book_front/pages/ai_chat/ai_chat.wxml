@@ -1,0 +1,54 @@
+<!--pages/ai_chat/ai_chat.wxml-->
+<scroll-view scroll-y="true" style="height: 80vh;">
+  <block wx:for="{{msgList}}" wx:key="index">
+    <view wx:if="{{index == 0 || item.time - msgList[index - 1].time > 180000}}" class="time">{{timeList[index]}}</view>
+    
+    <!-- AI消息 -->
+    <view wx:if="{{item.isAI}}" class="opposite">
+      <image class="head" src="/image/ai_assistant.png"></image>
+      <view class="limit">
+        <view class="right">
+          <view class="nickname">AI智能客服</view>
+          <view class="content ai-content" style="float:left">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 用户消息 -->
+    <view wx:else class="self">
+      <image class="head" src="{{appInstance.globalData.userInfo.avatarUrl || '/image/person.png'}}"></image>
+      <view class="limit">
+        <view class="left">
+          <view class="nickname">{{appInstance.globalData.userInfo.nickName || '我'}}</view>
+          <view class="content user-content" style="float:right">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 加载中提示 -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="loading"></view>
+    <text class="loading-text">小二正在组织语言...</text>
+  </view>
+</scroll-view>
+
+<!-- 快速问题 -->
+<scroll-view scroll-x="true" class="quick-questions">
+  <view 
+    wx:for="{{quickQuestions}}" 
+    wx:key="index" 
+    class="quick-question-item" 
+    bindtap="tapQuickQuestion" 
+    data-question="{{item}}">
+    {{item}}
+  </view>
+</scroll-view>
+
+<!-- 输入框 -->
+<form bindsubmit="sendMsg" id="sendMsg">
+  <view class="bottom">
+    <input name="msg" value="{{tempMsg}}" style="margin-left:32rpx;width:520rpx;" placeholder="请输入您的问题"></input>
+    <button form-type="submit" id="sendBtn" disabled="{{loading}}">发送</button>
+  </view>
+</form>

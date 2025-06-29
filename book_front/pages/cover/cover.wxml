@@ -1,0 +1,23 @@
+<view class='cover-container'>
+  <view class='logo-section'>
+    <image src='/image/二货.jpg' class='app-logo' mode='aspectFit'></image>
+    <view class='app-title'>二货来了</view>
+    <view class='app-title'>专注校园的二手交易平台</view>
+  </view>
+  
+  <view class='login-section'>
+    <button 
+      open-type='getUserInfo' 
+      bindgetuserinfo='initUser'
+      class='login-btn'
+    >
+      一键登录
+    </button>
+    <view class='protocol'>
+      登录表示同意
+      <navigator url='/pages/protocol/protocol' class='protocol-link'>
+        《二手交易服务协议》
+      </navigator>
+    </view>
+  </view>
+</view>

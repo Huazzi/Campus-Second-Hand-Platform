@@ -1,0 +1,105 @@
+<!--pages/me/me.wxml-->
+<view class="page-container">
+
+<!-- 页头 -->
+<view class='header'>
+  <view class='user-info'>
+    <image src='{{userInfo.avatarUrl}}' class='avatar'></image>
+    <view class='user-details'>
+      <view class='nickname'>{{userInfo.nickName}}</view>
+      <view class='user-id'>用户ID: {{userInfo.userId}}</view>
+      <view class='credit-score'>
+        <text>信用积分:</text>
+        <text class='score'>12</text>
+      </view>
+    </view>
+  </view>
+  <navigator id='update_user' url='/pages/update_userInfo/update_userInfo' hover-class='none' class='edit-profile'>
+    <text>编辑资料</text>
+    <text class='arrow'>></text>
+  </navigator>
+</view>
+
+<!-- 内容区域 -->
+<view class='content-section'>
+  <navigator url='/pages/released_goods/released' class="menu-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/add_good.png' class='menu-icon'></image>
+        <text>我发布的</text>
+      </view>
+      <view class='menu-count'>{{statistic.released}} <text class='arrow'>></text></view>
+    </view>
+  </navigator>
+  
+  <navigator url='/pages/orders/orders' class="menu-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/order_buy.png' class='menu-icon'></image>
+        <text>我购买的订单</text>
+      </view>
+      <view class='menu-count'>{{statistic.bought}} <text class='arrow'>></text></view>
+    </view>
+  </navigator>
+
+  <navigator url='/pages/orders_sell/orders_sell' class="menu-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/order_sell.png' class='menu-icon'></image>
+        <text>我卖出的订单</text>
+      </view>
+      <view class='menu-count'>{{statistic.sold}} <text class='arrow'>></text></view>
+    </view>
+  </navigator>
+ 
+  <navigator url='/pages/course_schedule/course_schedule' class="menu-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/course.png' class='menu-icon'></image>
+        <text>我的课程表</text>
+      </view>
+      <view class='menu-count'><text class='arrow'>></text></view>
+    </view>
+  </navigator>
+ 
+  <navigator url='/pages/update_userInfo/addr/addr' class="menu-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/feedback.png' class='menu-icon'></image>
+        <text>地址管理</text>
+      </view>
+      <view class='menu-count'><text class='arrow'>></text></view>
+    </view>
+  </navigator>
+
+  <navigator url='/pages/collected_goods/collected' class="menu-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/favorite.png' class='menu-icon'></image>
+        <text>我收藏的</text>
+      </view>
+      <view class='menu-count'>{{statistic.collect}} <text class='arrow'>></text></view>
+    </view>
+  </navigator>
+
+  <navigator url='/pages/feedback/feedback' class="menu-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/feedback.png' class='menu-icon'></image>
+        <text>反馈/建议</text>
+      </view>
+      <view class='menu-count'><text class='arrow'>></text></view>
+    </view>
+  </navigator>
+
+  <navigator url='/pages/about/about' class="menu-item last-item">
+    <view class='menu-content'>
+      <view class='menu-icon-text'>
+        <image src='/image/about.png' class='menu-icon'></image>
+        <text>关于</text>
+      </view>
+      <view class='menu-count'><text class='arrow'>></text></view>
+    </view>
+  </navigator>
+</view>
+</view>

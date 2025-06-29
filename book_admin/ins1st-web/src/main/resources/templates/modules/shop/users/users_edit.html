@@ -1,0 +1,17 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+            <input type="hidden" id="id" name="id" value="${users.id}"/>
+<#input inputName="" id="username" name="username" value="${users.username}" required="required"/>
+<#input inputName="" id="nickname" name="nickname" value="${users.nickname}" required="required"/>
+<#input inputName="" id="head" name="head" value="${users.head}"/>
+<#input inputName="" id="mobilephone" name="mobilephone" value="${users.mobilephone}"/>
+<#input inputName="" id="address" name="address" value="${users.address}"/>
+<#select selectName="1男 0女" id="sex" name="sex" value="${users.sex}" dictType="sex"/>
+<#button btName="修改users" filter="edit"/></form>
+<script src="${ctxPath}/static/modules/shop/users/users_edit.js"></script>
+</body>
+@}

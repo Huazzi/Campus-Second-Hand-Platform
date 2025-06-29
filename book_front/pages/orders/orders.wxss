@@ -1,0 +1,96 @@
+.Pagetitle {
+  margin: 30rpx 20rpx;
+  border: 1rpx solid #e5e5e5;
+  border-radius: 12rpx;
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 15rpx 0;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.Pagetitle text {
+  color: #333;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.order {
+  background: #fff;
+  margin: 20rpx 20rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.05);
+  padding: 20rpx;
+}
+
+.order .heade {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.order .heade .status {
+  color: #FF4D4F;
+  font-weight: bold;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+  padding: 10rpx 0;
+}
+
+.productInfo image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.productInfo .titleAndPrice {
+  flex: 1;
+}
+
+.titleAndPrice .title {
+  font-size: 30rpx;
+  color: #111;
+  margin-bottom: 10rpx;
+}
+
+.titleAndPrice .price {
+  font-size: 32rpx;
+  color: #FF4D4F;
+  font-weight: bold;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.detail .total text {
+  color: #FF4D4F;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.go {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+
+.go button {
+  padding: 10rpx 30rpx;
+  font-size: 28rpx;
+  background-color: #FF4D4F;
+  border: none;
+  border-radius: 40rpx;
+  color: #fff;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+}

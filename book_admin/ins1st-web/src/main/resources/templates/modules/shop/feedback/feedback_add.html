@@ -1,0 +1,13 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+<#input inputName="内容" id="content" name="content" required="required"/>
+<#input inputName="联系方式" id="contact" name="contact" required="required"/>
+<#time timeName="日期" id="time" name="time" required="required"/>
+<#button btName="添加反馈" filter="add"/></form>
+<script src="${ctxPath}/static/modules/shop/feedback/feedback_add.js"></script>
+</body>
+@}

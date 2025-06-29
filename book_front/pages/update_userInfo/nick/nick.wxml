@@ -1,0 +1,27 @@
+<!-- pages/update_userInfo/nick/nick.wxml -->
+<view class="container">
+  <view class="form-card">
+    <form bindsubmit='updateNick'>
+      <view class="form-group">
+        <text class="form-label">昵称</text>
+        <input 
+          type='text' 
+          name="nickname" 
+          maxlength='8' 
+          placeholder='请输入你的昵称' 
+          placeholder-class="placeholder"
+          value='{{appInstance.globalData.userInfo.nickName}}'
+          class="form-input"
+        ></input>
+      </view>
+      
+      <button 
+        form-type='submit' 
+        class="submit-btn"
+        hover-class="submit-btn-hover"
+      >
+        修改昵称
+      </button>
+    </form>
+  </view>
+</view>

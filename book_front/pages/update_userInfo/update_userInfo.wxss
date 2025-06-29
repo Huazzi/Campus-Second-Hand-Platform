@@ -1,0 +1,112 @@
+/* pages/userInfo/userInfo.wxss */
+
+page {
+  background-color: #f8f9fb;
+  padding-bottom: 60rpx;
+}
+
+/* 主列表容器 */
+.setting_list {
+  background-color: #ffffff;
+  margin: 30rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+/* 列表项基础样式 */
+.setting_item {
+  padding: 24rpx 32rpx;
+  min-height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 32rpx;
+  color: #333;
+  transition: all 0.25s ease;
+}
+
+/* 点击反馈效果 */
+.setting_item:active {
+  background-color: #f8f8f8;
+}
+
+/* 左侧标签样式 */
+.setting_item > view:first-child {
+  font-weight: 450;
+  color: #444;
+}
+
+/* 右侧内容基础样式 - 所有右侧元素 */
+.setting_item > view:last-child {
+  margin-right: 20rpx; /* 默认右边距 */
+  max-width: 60%;
+  text-align: right;
+  word-break: break-word;
+  font-size: 30rpx;
+  color: #666;
+}
+
+/* 可点击项（带箭头）的特殊处理 */
+navigator .setting_item > view:last-child,
+.setting_item[bindtap] > view:last-child {
+  margin-right: 0; /* 移除基础右边距 */
+  padding-right: 36rpx; /* 为箭头预留空间 */
+  position: relative;
+}
+
+/* 箭头样式 */
+navigator .setting_item > view:last-child:after,
+.setting_item[bindtap] > view:last-child:after {
+  content: "›";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c0c4cc;
+  font-size: 36rpx;
+}
+
+/* 头像特殊处理 */
+.head {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3rpx solid #f0f0f0;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  margin-right: 0 !important; /* 覆盖默认右边距 */
+}
+
+/* 高亮文本 */
+.highlight {
+  color: #ff6b81;
+  font-weight: 500;
+}
+
+/* 地址特殊处理 */
+.address_content {
+  margin-left: 40rpx;
+  max-width: 420rpx;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.6;
+}
+
+/* 分隔线 */
+.divide_line {
+  border-bottom: 1rpx solid #f0f0f0;
+  margin: 0 32rpx;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+  .setting_list {
+    margin: 20rpx 15rpx;
+  }
+  .setting_item {
+    padding: 20rpx 25rpx;
+    font-size: 30rpx;
+  }
+}

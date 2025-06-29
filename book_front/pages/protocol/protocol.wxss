@@ -1,0 +1,116 @@
+.container {
+  padding: 24px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #2c7d59;
+  letter-spacing: 0.5px;
+}
+
+.section {
+  margin-bottom: 28px;
+  background: #fafafa;
+  padding: 18px;
+  border-radius: 6px;
+  border-left: 3px solid #4CAF50;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c7d59;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.section-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+}
+
+.clause {
+  margin-bottom: 14px;
+  display: flex;
+}
+
+.clause-number {
+  font-weight: 600;
+  color: #4CAF50;
+  min-width: 32px;
+}
+
+.clause-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
+  flex: 1;
+}
+
+.sub-clause {
+  margin-left: 24px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+  position: relative;
+  padding-left: 12px;
+}
+
+.sub-clause::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+}
+
+.link {
+  color: #1e88e5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: #0d47a1;
+  text-decoration: underline;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+  .container {
+    padding: 16px 12px;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .section {
+    padding: 14px;
+  }
+  
+  .section-title {
+    font-size: 17px;
+  }
+  
+  .clause-content, .section-content {
+    font-size: 14px;
+  }
+}

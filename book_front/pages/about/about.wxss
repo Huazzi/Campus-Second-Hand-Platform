@@ -1,0 +1,103 @@
+/* pages/about/about.wxss */
+
+page {
+  background-color: #f8f9fa;
+  height: 100%;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+/* 头部区域 */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+
+.logo {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 36rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 30rpx;
+}
+
+.title {
+  font-size: 42rpx;
+  font-weight: bold;
+  color: #3a5bff;
+  margin-bottom: 10rpx;
+  letter-spacing: 1rpx;
+}
+
+.version {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 联系区域 */
+.contact-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-card {
+  background-color: #fff;
+  border-radius: 24rpx;
+  padding: 0 30rpx;
+  box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.05);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+}
+
+.contact-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 24rpx;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 6rpx;
+}
+
+.contact-value {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.divider {
+  height: 1rpx;
+  background-color: #f0f0f0;
+}
+
+/* 底部区域 */
+.footer-section {
+  margin-top: auto;
+  padding: 40rpx 0;
+  text-align: center;
+}
+
+.copyright {
+  font-size: 26rpx;
+  color: #aaa;
+}

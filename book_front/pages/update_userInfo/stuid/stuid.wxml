@@ -1,0 +1,39 @@
+<!-- pages/update_userInfo/stuid/stuid.wxml -->
+<view class="container">
+  <view class="form-card">
+    <form bindsubmit='bindsid'>
+      <view class="form-group">
+        <text class="form-label">学号</text>
+        <input 
+          type='number' 
+          name="username" 
+          maxlength='12' 
+          placeholder='请输入你的学号' 
+          placeholder-class="placeholder"
+          value='{{myCard.stuid}}'
+          class="form-input"
+        ></input>
+      </view>
+      <view class="form-group">
+        <text class="form-label">校园卡密码</text>
+        <input 
+          type='password' 
+          name="password" 
+          maxlength='6' 
+          placeholder='请输入校园卡密码（默认为身份证后六位）' 
+          placeholder-class="placeholder"
+          value='{{myCard.password}}'
+          class="form-input"
+        ></input>
+      </view>
+      
+      <button 
+        form-type='submit' 
+        class="submit-btn"
+        hover-class="submit-btn-hover"
+      >
+        绑定学号
+      </button>
+    </form>
+  </view>
+</view>

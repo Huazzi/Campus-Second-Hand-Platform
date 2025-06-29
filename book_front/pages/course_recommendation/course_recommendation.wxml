@@ -1,0 +1,100 @@
+<!--pages/course_recommendation/course_recommendation.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="semester-section">
+      <text class="section-title">学期：</text>
+      <picker mode="selector" range="{{semesters}}" value="{{currentSemesterIndex}}" bindchange="changeSemester">
+        <view class="semester-picker">{{semesters[currentSemesterIndex]}}</view>
+      </picker>
+    </view>
+    <view class="display-toggle" bindtap="toggleDisplayMode">
+      <text>{{isCourseGroupDisplay ? '按教材显示' : '按课程显示'}}</text>
+    </view>
+  </view>
+  
+  <view class="recommendation-info">
+    <text wx:if="{{userMajor}}">专业：{{userMajor}}</text>
+    <text>推荐教材数：{{recommendedBooks.length}}</text>
+  </view>
+  
+  <view class="content">
+    <!-- 加载中 -->
+    <view class="loading" wx:if="{{isLoading}}">
+      <image class="loading-icon" src="/images/loading.gif"></image>
+      <text>加载推荐教材中...</text>
+    </view>
+    
+    <!-- 错误提示 -->
+    <view class="error-tip" wx:if="{{!isLoading && errorMsg}}">
+      <text>{{errorMsg}}</text>
+      <button class="btn-upload" bindtap="navigateToCourseSchedule">上传课程表</button>
+    </view>
+    
+    <!-- 按课程分组显示 -->
+    <block wx:if="{{!isLoading && !errorMsg && isCourseGroupDisplay}}">
+      <view class="course-groups">
+        <block wx:for="{{courseGroups}}" wx:key="courseName" wx:for-item="courseGroup">
+          <view class="course-group">
+            <view class="course-name">
+              <text class="course-icon">📚</text>
+              <text>{{courseGroup.courseName}}</text>
+              <text class="book-count">({{courseGroup.books.length}}本)</text>
+            </view>
+            <view class="book-list">
+              <block wx:for="{{courseGroup.books}}" wx:key="bookId" wx:for-item="book">
+                <view class="book-item {{book.bookId && !book.bookId.startsWith('temp_') ? 'clickable' : 'disabled'}}" 
+                      bindtap="{{book.bookId && !book.bookId.startsWith('temp_') ? 'viewBookDetail' : ''}}" 
+                      data-id="{{book.bookId}}">
+                  <image class="book-image" src="{{book.images[0]}}" mode="aspectFit"></image>
+                  <view class="book-info">
+                    <view class="book-name">{{book.goodname}}</view>
+                    <view class="book-price">¥{{book.price || '价格未知'}}</view>
+                    <view class="book-meta">
+                      <text wx:if="{{book.isRequired}}" class="required-tag">必修</text>
+                      <text class="recommend-level">推荐指数: {{book.recommendLevel || 3}}</text>
+                    </view>
+                    <view class="book-id" style="font-size: 10px; color: #999;">ID: {{book.bookId || '无效'}}</view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+    
+    <!-- 按教材列表显示 -->
+    <block wx:if="{{!isLoading && !errorMsg && !isCourseGroupDisplay}}">
+      <view class="books-grid">
+        <block wx:for="{{recommendedBooks}}" wx:key="bookId">
+          <view class="book-card {{item.bookId && !item.bookId.startsWith('temp_') ? 'clickable' : 'disabled'}}" 
+                bindtap="{{item.bookId && !item.bookId.startsWith('temp_') ? 'viewBookDetail' : ''}}" 
+                data-id="{{item.bookId}}">
+            <image class="book-cover" src="{{item.images[0]}}" mode="aspectFit"></image>
+            <view class="book-card-info">
+              <text class="book-card-name">{{item.goodname}}</text>
+              <text class="book-card-price">¥{{item.price || '价格未知'}}</text>
+              <view class="book-card-meta">
+                <text wx:if="{{item.courseName}}" class="course-tag">{{item.courseName}}</text>
+                <text wx:if="{{item.isRequired}}" class="required-tag">必修</text>
+              </view>
+              <view class="book-id" style="font-size: 10px; color: #999;">ID: {{item.bookId || '无效'}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </block>
+    
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{!isLoading && !errorMsg && recommendedBooks.length === 0}}">
+      <image src="/images/default_cover.png" mode="aspectFit"></image>
+      <text>暂无推荐教材</text>
+      <button class="btn-upload" bindtap="navigateToCourseSchedule">上传课程表</button>
+    </view>
+  </view>
+  
+  <view class="footer">
+    <text>温馨提示：推荐教材根据课程和专业智能匹配</text>
+    <text>更多功能敬请期待</text>
+  </view>
+</view> 

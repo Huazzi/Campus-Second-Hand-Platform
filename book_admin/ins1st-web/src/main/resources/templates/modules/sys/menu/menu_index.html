@@ -1,0 +1,28 @@
+@layout("/common/head.html"){
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <button class="layui-btn layui-btn" id="addMenu">
+                        <i class="layui-icon">&#xe654;</i>新增
+                    </button>
+                    <button class="layui-btn layui-btn" id="editMenu">
+                        <i class="layui-icon">&#xe642;</i>修改
+                    </button>
+                    <button class="layui-btn layui-btn-normal" id="refresh">
+                        <i class="layui-icon">&#xe669;</i>刷新
+                    </button>
+                    <button class="layui-btn layui-btn-danger" id="delMenu">
+                        <i class="layui-icon">&#xe640;</i>删除
+                    </button>
+                </div>
+                <table class="layui-table layui-form" id="tree-table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modules/sys/menu/index.js"></script>
+</body>
+@}

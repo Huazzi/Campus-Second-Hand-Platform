@@ -1,0 +1,33 @@
+<view wx:if='{{goods.length > 0}}' class='list_item' wx:for='{{goods}}'>
+  <navigator url='/pages/good/good?goodId={{item.goodId}}'>
+    <view class='list_item_up'>
+      <image src='{{appInstance.globalData.host + "img/goods/" + item.images}}'></image>
+      <view class='detail'>
+        <view class='good_name'>{{item.goodName}}</view>
+        <view class='price'>￥{{item.price}}</view>
+        <view class='noemphasize'>{{item.leave_msg}}留言 | 收藏 {{item.collect}}</view>
+      </view>
+    </view>
+  </navigator>
+
+  <view class='divide_line'></view>
+  <view class='btn_box'>
+    <view wx:if='{{item.num < 0}}'>
+      <button class='alarm'>已失效</button>
+    </view>
+    <view>
+      <button open-type="share" data-good='{{item}}'>分享</button>
+    </view>
+    <view>
+      <button bindtap='showMenu' data-goodId='{{item.goodId}}'>●●●</button>
+    </view>
+  </view>
+</view>
+
+<view class='empty' wx:if='{{goods.length == 0}}'>
+  <image src='/image/empty.png'></image>
+  <view class='empty_text'>
+    <view>收藏里是空的</view>
+    <view>去首页添加你喜欢的商品吧</view>
+  </view>
+</view>

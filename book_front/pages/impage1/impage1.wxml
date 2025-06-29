@@ -1,0 +1,39 @@
+<view class="container">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <text class="header-title">校园闲置物品置换节</text>
+  </view>
+
+  <!-- 正文内容 -->
+  <view class="article">
+    <!-- 段落 1 -->
+    <image class="article-image" src="/image/zhihuan.jpg" mode="widthFix"></image>
+    <text class="article-text">
+      欢迎来到校园闲置物品置换节！我们倡导绿色环保、资源共享，鼓励大家将闲置物品拿出来进行置换，实现资源再利用。
+    </text>
+
+    <!-- 段落 2 -->
+    <text class="article-text">
+      无论你是有书籍、衣物、电子产品，还是其他物品，都可以在这里找到新的归宿。
+    </text>
+    <image class="article-image" src="/image/01.jpg" mode="widthFix"></image>
+
+    <!-- 段落 3 -->
+    <image class="article-image" src="/image/02.jpg" mode="widthFix"></image>
+    <text class="article-text">
+      这也是一个结交朋友的好机会。交流心得，分享故事，拓展社交圈，说不定还能遇见志同道合的伙伴。
+    </text>
+
+    <!-- 段落 4 -->
+    <text class="article-text">
+      活动现场有丰富多样的物品等待你探索。快来开启环保又有趣的交换之旅吧！
+    </text>
+    <image class="article-image" src="/image/zhihuan.jpg" mode="widthFix"></image>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="footer">
+    <button class="footer-button">查看更多闲置物品</button>
+    <button class="footer-button">我要参与置换</button>
+  </view>
+</view>

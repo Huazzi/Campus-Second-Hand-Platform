@@ -1,0 +1,99 @@
+.Pagetitle {
+  margin: 30rpx 20rpx;
+  padding: 20rpx 0;
+  border-radius: 12rpx;
+  text-align: center;
+  background-color: #f5f5f5;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+.Pagetitle text {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.order {
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  padding: 30rpx 20rpx;
+}
+
+.order .heade {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #444;
+  margin-bottom: 20rpx;
+}
+.order .heade .status {
+  background-color: #ffeded;
+  color: #ff4d4f;
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.productInfo {
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+  padding-bottom: 20rpx;
+}
+
+.productInfo image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  margin-right: 20rpx;
+}
+
+.productInfo .titleAndPrice {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.titleAndPrice .title {
+  font-size: 30rpx;
+  color: #111;
+}
+.titleAndPrice .price {
+  font-size: 32rpx;
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  color: #777;
+}
+.detail .total text {
+  color: #ff4d4f;
+  font-weight: bold;
+  font-size: 30rpx;
+}
+
+.go {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30rpx;
+}
+.go button {
+  padding: 14rpx 40rpx;
+  background-color: #ff4d4f;
+  border: none;
+  border-radius: 30rpx;
+  color: white;
+  font-size: 28rpx;
+  box-shadow: 0 4rpx 10rpx rgba(255, 77, 79, 0.4);
+  transition: background-color 0.3s;
+}
+.go button:hover {
+  background-color: #e04345;
+}

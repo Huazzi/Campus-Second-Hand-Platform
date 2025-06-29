@@ -1,0 +1,31 @@
+<view class="container">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <text class="header-title">毕业大甩卖</text>
+  </view>
+
+  <!-- 正文内容 -->
+  <view class="article">
+    <image class="article-image" src="/image/04.jpg" mode="widthFix"></image>
+    <text class="article-text">
+      🎓 又是一年毕业季，毕业生们即将踏上人生新旅程。在这离别之际，我们为大家准备了一场特别的“毕业大甩卖”活动，欢迎全校师生前来参与！
+    </text>
+
+    <text class="article-text">
+      本次活动由学生会联合各学院毕业生共同发起，旨在帮助毕业生处理闲置物品，同时为在校同学提供低价淘好物的机会。
+    </text>
+    <image class="article-image" src="/image/03.jpg" mode="widthFix"></image>
+
+    <image class="article-image" src="/image/02.jpg" mode="widthFix"></image>
+    <text class="article-text">
+      无论是学习用品、书籍文具、生活电器，还是衣物饰品、运动器材，统统白菜价！不仅环保便利，更传递温情与祝福。
+    </text>
+
+    <text class="article-text">
+      📍 活动地点：教学楼前广场  
+      📅 活动时间：本周五下午 2:00 - 6:00  
+      快带上你的零钱包，来一场走心的“淘货之旅”吧！
+    </text>
+    <image class="article-image" src="/image/05.jpg" mode="widthFix"></image>
+  </view>
+</view>

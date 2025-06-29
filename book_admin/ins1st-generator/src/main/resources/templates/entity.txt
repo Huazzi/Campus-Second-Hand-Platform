@@ -1,0 +1,49 @@
+package com.ins1st.web.modules.${map["moduleName"]}.entity;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+
+/**
+ *  ${map["tableComment"]}
+ *  @author ${map["author"]}
+ */
+@TableName("${map["tableName"]}")
+public class ${map["entityName"]} {
+
+ @for(field in map["columns"]){
+    sss
+ @}
+
+<%for(field in map["columns"]){%>
+   <%if(field.keyFlag == true){%>
+    /**
+     *  ${field.comment}
+     */
+    @TableId
+    private ${field.columnType.type} ${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,true)};
+   <%}%>
+   <%else{%>
+   /**
+    *  ${field.comment}
+    */
+    @TableField("${field.name}")
+    private ${field.columnType.type} ${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,true)};
+   <%}%>
+<%}%>
+
+
+<%for(field in map["columns"]){%>
+    public ${field.columnType.type} get${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,false)}() {
+       return ${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,true)};
+    }
+
+    public void set${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,false)}(${field.columnType.type} ${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,true)}) {
+       this.${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,true)} = ${@com.ins1st.util.ColumnUtil.underline2Camel(field.name,true)};
+    }
+<%}%>
+
+
+}
+
