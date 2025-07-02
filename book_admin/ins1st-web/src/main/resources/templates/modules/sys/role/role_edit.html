@@ -1,0 +1,16 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+    <input hidden="hidden" id="id" name="id" value="${sysRole.id}" />
+    <#input inputName="角色名称" id="name" name="name" required="required" value="${sysRole.name}"/>
+    <#input inputName="角色标识" id="keyword" name="keyword" value="${sysRole.keyword}" required="required"/>
+    <#select selectName="角色状态" id="status" name="status" value="${sysRole.status}" list="${roleEnum}" optionName="name" optionValue="code" required="required" />
+    <#input inputName="菜单排序" id="sort" name="sort" value="${sysRole.sort}"/>
+    <#button btName="修改角色" filter="edit"/>
+</form>
+<script src="${ctxPath}/static/modules/sys/role/edit.js"></script>
+</body>
+@}

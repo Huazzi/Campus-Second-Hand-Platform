@@ -1,0 +1,50 @@
+@layout("/common/head.html"){
+<script>
+    if (window != top)
+        top.location.href = location.href;
+</script>
+<body class="login-bg">
+<div class="login layui-anim layui-anim-up">
+    <div class="message">${appName}-登录</div>
+    <div id="darkbannerwrap"></div>
+
+    <form method="post" class="layui-form">
+        <input name="userName" placeholder="用户名" type="text" lay-verify="required" class="layui-input">
+        <hr class="hr15">
+        <input name="userPwd" lay-verify="required" placeholder="密码" type="password" class="layui-input">
+        <hr class="hr15">
+        <input name="rememberMe" lay-skin="primary" type="checkbox" value="1" title="记住我">
+        <hr class="hr15">
+        <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+        <hr class="hr20">
+
+    </form>
+</div>
+
+<script>
+    $(function () {
+        layui.use('form', function () {
+            var form = layui.form;
+            form.on('submit(login)', function (data) {
+                $("input:checkbox[name='rememberMe']:checked").each(function (i) {
+                    data.field.rememberMe = "on";
+                });
+                $.ajax({
+                    url: Base.ctxPath + "/doLogin",
+                    type: "post",
+                    data: data.field,
+                    success: function (result) {
+                        if (result.success) {
+                            location.href = Base.ctxPath + '/index';
+                        } else {
+                            Base.fail(result.message);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    })
+</script>
+</body>
+@}

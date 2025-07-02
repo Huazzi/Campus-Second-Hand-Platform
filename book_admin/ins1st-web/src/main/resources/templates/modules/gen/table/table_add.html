@@ -1,0 +1,26 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">数据表：</label>
+        <div class="layui-input-inline">
+            <select id="tableName" name="tableName" lay-verify="required">
+                <option value="">请选择</option>
+                @if(isNotEmpty(tables)){
+                @for(table in tables){
+                <option value="${table.tableName}">${table.tableName}-${table.tableComment}
+                </option>
+                @}
+                @}
+            </select>
+        </div>
+    </div>
+<#input inputName="模块名" id="moduleName" name="moduleName" required="required"/>
+<#input inputName="业务名" id="bizName" name="bizName" required="required"/>
+<#button btName="添加" filter="add"/></form>
+<script src="${ctxPath}/static/modules/gen/table/table_add.js"></script>
+</body>
+@}

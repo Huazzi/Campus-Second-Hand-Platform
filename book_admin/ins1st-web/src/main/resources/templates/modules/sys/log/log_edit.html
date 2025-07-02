@@ -1,0 +1,16 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+<#input inputName="ID" id="id" name="id" value="id" required="required"/>
+<#input inputName="日志标题" id="title" name="title" value="title" required="required"/>
+<#input inputName="记录参数" id="params" name="params" value="params" required="required"/>
+<#input inputName="执行类" id="className" name="className" value="className" required="required"/>
+<#input inputName="执行方法" id="method" name="method" value="method" required="required"/>
+<#input inputName="创建时间" id="createTime" name="createTime" value="createTime" required="required"/>
+<#button btName="添加角色" filter="edit"/></form>
+<script src="${ctxPath}/static/modules/sys/log/log_edit.js"></script>
+</body>
+@}

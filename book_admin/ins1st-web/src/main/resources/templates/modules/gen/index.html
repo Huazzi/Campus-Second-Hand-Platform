@@ -1,0 +1,75 @@
+@layout("/common/head.html"){
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form action="" method="post" class="layui-form layui-form-pane">
+            <div class="layui-form-item">
+                <label for="author" class="layui-form-label">
+                    <span class="x-red">*</span>作者名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="author" name="author" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="tableName" class="layui-form-label">
+                    <span class="x-red">*</span>表名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tableName" name="tableName" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="moduleName" class="layui-form-label">
+                    <span class="x-red">*</span>模块名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="moduleName" name="moduleName" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="bizName" class="layui-form-label">
+                    <span class="x-red">*</span>业务名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="bizName" name="bizName" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">
+                    生成模块
+                </label>
+                <table  class="layui-table layui-input-block">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input name="gens" lay-skin="primary" type="checkbox" value="1" title="控制层">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="2" title="业务层接口">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="3" title="业务层实现类">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="4" title="实体类">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="5" title="数据层接口">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="6" title="数据层xml">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="7" title="index页面">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="8" title="add页面">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="9" title="edit页面">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="10" title="indexJs">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="11" title="addJs">
+                            <input name="gens" lay-skin="primary" type="checkbox" value="12" title="editJs">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" lay-filter="add">一键生成代码</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="${ctxPath}/static/modules/gen/index.js"></script>
+</body>
+@}

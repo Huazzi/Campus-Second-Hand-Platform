@@ -1,0 +1,18 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+    <input hidden="hidden" id="id" name="id" value="${sysMenu.id}"/>
+    <#input inputName="菜单名称" id="name" name="name" required="required" value="${sysMenu.name}"/>
+    <#input inputName="父级ID" id="pId" name="pId" value="${sysMenu.pId}"/>
+    <#input inputName="菜单地址" id="url" name="url" required="required" value="${sysMenu.url}"/>
+    <#input inputName="菜单权限" id="role" name="role" value="${sysMenu.role}"/>
+    <#select selectName="是否是菜单" id="isMenu" name="isMenu" list="${isMenuEnum}" value="${sysMenu.isMenu}" optionName="name" optionValue="code" required="required"/>
+    <#input inputName="菜单排序" id="sort" name="sort" value="${sysMenu.sort}"/>
+    <#button btName="更新菜单" filter="edit"/>
+</form>
+<script src="${ctxPath}/static/modules/sys/menu/edit.js"></script>
+</body>
+@}

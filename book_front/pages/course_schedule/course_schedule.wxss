@@ -1,0 +1,705 @@
+/* pages/course_schedule/course_schedule.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 顶部标题栏 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 20rpx 30rpx;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.semester-selector {
+  font-size: 28rpx;
+  color: #3366cc;
+}
+
+.semester-picker,
+.week-picker {
+  padding: 10rpx 20rpx;
+  background-color: #f5f5f5;
+  border-radius: 10rpx;
+}
+
+/* 周选择器 */
+.week-selector {
+  display: flex;
+  padding: 20rpx 10rpx;
+  background-color: #ffffff;
+  overflow-x: scroll;
+  white-space: nowrap;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.week-item {
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  margin: 0 10rpx;
+  border-radius: 50%;
+  font-size: 28rpx;
+}
+
+.week-active {
+  background-color: #3366cc;
+  color: #ffffff;
+}
+
+.add-btn {
+  font-size: 28rpx;
+  padding: 10rpx 30rpx;
+}
+
+/* 课程表头部 */
+.timetable-header {
+  display: flex;
+  background-color: #f0f0f0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.time-column {
+  width: 160rpx;
+  flex-shrink: 0;
+  text-align: center;
+  padding: 10rpx 0;
+  font-size: 24rpx;
+  border-right: 1rpx solid #eee;
+  background-color: #fafafa;
+}
+
+.day-column {
+  flex: 1;
+  text-align: center;
+  padding: 10rpx 0;
+  font-size: 24rpx;
+  position: relative;
+  min-height: 80rpx;
+}
+
+/* 课程表内容 */
+.timetable-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.timetable-row {
+  display: flex;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.time-detail {
+  font-size: 20rpx;
+  color: #666666;
+}
+
+.schedule-grid {
+  display: flex;
+  border: 1rpx solid #eee;
+}
+
+.time-slot {
+  height: 120rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  border-bottom: 1rpx solid #eee;
+  box-sizing: border-box;
+}
+.time-slot:last-child {
+  border-bottom: none;
+}
+
+.course-grid {
+  flex: 1;
+  position: relative;
+  background-color: #fff;
+}
+
+.weekday-row {
+  display: flex;
+  height: 80rpx;
+  border-bottom: 1rpx solid #eee;
+  background-color: #f7f7f7;
+}
+
+.weekday {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28rpx;
+  border-right: 1rpx solid #eee;
+  box-sizing: border-box;
+}
+.weekday:last-child {
+  border-right: none;
+}
+
+.course-cells {
+  position: relative;
+}
+
+/* 课程项 */
+.course-item {
+  position: absolute;
+  padding: 8rpx;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  color: #fff;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 1;
+  border: 1rpx solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.course-name {
+  font-weight: bold;
+  margin-bottom: 4rpx;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+}
+
+.course-location {
+  font-size: 20rpx;
+  line-height: 1.2;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.course-textbook {
+  font-size: 18rpx;
+  margin-top: 4rpx;
+  opacity: 0.9;
+}
+
+/* 底部操作栏 */
+.action-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx;
+  background-color: #ffffff;
+  border-top: 1rpx solid #e0e0e0;
+}
+
+.action-button {
+  font-size: 28rpx;
+  background-color: #3366cc;
+  color: #ffffff;
+  width: 200rpx;
+}
+
+/* 弹窗样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  width: 85%;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 16rpx;
+  transform: translateY(50rpx);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  padding: 30rpx;
+  background: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #eee;
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+
+.modal-header .title-text {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.close-btn {
+  padding: 10rpx;
+  font-size: 40rpx;
+  color: #999;
+  line-height: 1;
+}
+
+.form-container,
+.course-detail {
+  padding: 30rpx;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* 优化表单项样式 */
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-item text {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.form-item input,
+.form-item picker .picker-text {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.form-item picker view.picker-text {
+}
+
+button[form-type="submit"] {
+  margin-top: 40rpx;
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #07c160;
+  color: #fff;
+  font-size: 32rpx;
+  border-radius: 44rpx;
+}
+
+/* 表单项 (旧的，有些与上面重复，检查是否需要保留) */
+/* .form-item text {
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.form-item input {
+  border: 1rpx solid #ddd;
+  padding: 10rpx;
+  border-radius: 8rpx;
+} */
+
+.picker-text {
+}
+
+/* 课程详情特定样式 */
+.course-detail view {
+  margin-bottom: 15rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+.course-detail .detail-label {
+  font-weight: bold;
+  color: #555;
+  margin-right: 10rpx;
+}
+
+/* 教材推荐相关样式 (旧的，用于单个教材详情弹窗内) */
+.textbook-recommend-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin: 30rpx 0 20rpx;
+  color: #333333;
+}
+
+.textbook-list {
+  margin-top: 20rpx;
+}
+
+.textbook-item {
+  display: flex;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+.textbook-item:last-child {
+  border-bottom: none;
+}
+
+.textbook-image {
+  width: 160rpx;
+  height: 200rpx;
+  border-radius: 8rpx;
+  background-color: #f0f0f0;
+  margin-right: 20rpx;
+}
+
+.textbook-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.textbook-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.textbook-price {
+  font-size: 28rpx;
+  color: #e64340;
+  font-weight: bold;
+}
+
+.textbook-condition {
+  font-size: 24rpx;
+  color: #666666;
+  margin-top: 10rpx;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40rpx;
+}
+
+.button-group button {
+  margin: 0 10rpx;
+  flex: 1;
+  max-width: 200rpx;
+}
+
+/* 智能教材推荐区域样式 */
+.smart-recommendations-container {
+  margin-top: 20rpx;
+  padding: 0 20rpx 20rpx 20rpx;
+  background-color: #ffffff;
+  border-top: 1rpx solid #e9e9e9;
+  border-bottom: 1rpx solid #e9e9e9;
+  margin-bottom: 120rpx;
+}
+
+.smart-recommendations-container .recommendation-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  padding: 25rpx 0 15rpx 0;
+  color: #333;
+}
+
+.loading-tip,
+.no-recommendations-tip {
+  text-align: center;
+  color: #888;
+  padding: 40rpx 0;
+  font-size: 28rpx;
+}
+
+.recommended-books-scroll {
+  white-space: nowrap;
+  padding-bottom: 20rpx;
+}
+
+.recommended-book-item {
+  display: inline-block;
+  width: 220rpx;
+  margin-right: 20rpx;
+  vertical-align: top;
+  border: 1rpx solid #f0f0f0;
+  border-radius: 12rpx;
+  padding: 15rpx;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  background-color: #fff;
+}
+
+.recommended-book-item:last-child {
+  margin-right: 0;
+}
+
+.recommended-book-item .book-image {
+  width: 100%;
+  height: 240rpx;
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
+  margin-bottom: 10rpx;
+  border: 1rpx solid #eee;
+}
+
+.recommended-book-item .book-name {
+  font-size: 24rpx;
+  color: #333;
+  height: 68rpx;
+  line-height: 34rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 8rpx;
+  word-break: break-all;
+  text-align: left;
+}
+
+.recommended-book-item .book-price {
+  font-size: 26rpx;
+  color: #e44d40;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* 底部按钮样式 */
+.bottom-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 20rpx;
+  background: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.08);
+  z-index: 99;
+}
+
+.action-btn {
+  flex: 1;
+  margin: 0 10rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  border-radius: 40rpx;
+}
+
+.action-btn.primary {
+  background: #07c160;
+  color: #fff;
+}
+
+/* 学期提醒样式 */
+.semester-reminder {
+  background-color: #f8f4e6;
+  border-radius: 10rpx;
+  margin: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.reminder-content {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.reminder-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.reminder-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.reminder-btn {
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 30rpx;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 智能推荐区域样式 */
+.smart-recommendations-container {
+  margin: 20rpx;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.recommendation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.recommendation-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.title-icon {
+  margin-right: 10rpx;
+  font-size: 36rpx;
+}
+
+.view-all {
+  font-size: 24rpx;
+  color: #1aad19;
+}
+
+.loading-tip {
+  text-align: center;
+  padding: 30rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+.recommended-books-scroll {
+  white-space: nowrap;
+  margin-top: 10rpx;
+}
+
+.recommended-book-item {
+  display: inline-block;
+  width: 250rpx;
+  margin-right: 20rpx;
+  vertical-align: top;
+  background-color: #f8f8f8;
+  border-radius: 8rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
+}
+
+.book-image {
+  width: 100%;
+  height: 320rpx;
+  object-fit: cover;
+}
+
+.book-info {
+  padding: 16rpx;
+}
+
+.book-name {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: bold;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 76rpx;
+}
+
+.book-price {
+  font-size: 28rpx;
+  color: #e64340;
+  margin-top: 10rpx;
+  font-weight: bold;
+}
+
+.book-owner {
+  font-size: 22rpx;
+  color: #666;
+  margin-top: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-recommendations-tip,
+.empty-textbook-tip {
+  text-align: center;
+  padding: 40rpx 20rpx;
+  color: #999;
+  font-size: 28rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-book-btn,
+.add-course-btn {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  background-color: #1aad19;
+  color: #fff;
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  line-height: 1.5;
+}
+
+/* 推荐图书样式 - 可点击和禁用状态 */
+.recommended-book-item.clickable {
+  cursor: pointer;
+}
+
+.recommended-book-item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.recommended-book-item.disabled::after {
+  content: "暂无详情";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1;
+}

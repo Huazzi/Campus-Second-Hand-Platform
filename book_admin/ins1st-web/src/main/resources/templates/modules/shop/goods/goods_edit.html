@@ -1,0 +1,19 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+            <input type="hidden" id="id" name="id" value="${goods.id}"/>
+<#input inputName="" id="goodname" name="goodname" value="${goods.goodname}" required="required"/>
+<#input inputName="" id="goodownerid" name="goodownerid" value="${goods.goodownerid}" required="required"/>
+<#input inputName="" id="price" name="price" value="${goods.price}" required="required"/>
+<#input inputName="" id="description" name="description" value="${goods.description}"/>
+<#input inputName="" id="image" name="image" value="${goods.image}" required="required"/>
+<#input inputName="" id="num" name="num" value="${goods.num}" required="required"/>
+<#input inputName="" id="catagory" name="catagory" value="${goods.catagory}" required="required"/>
+<#time timeName="" id="time" name="time" value="${goods.time}"/>
+<#button btName="修改goods" filter="edit"/></form>
+<script src="${ctxPath}/static/modules/shop/goods/goods_edit.js"></script>
+</body>
+@}

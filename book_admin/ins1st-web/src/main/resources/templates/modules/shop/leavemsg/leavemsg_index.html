@@ -1,0 +1,38 @@
+@layout("/common/head.html"){
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+<#inputSearch inputName="" id="senduserid" name="senduserid"/>
+<#inputSearch inputName="" id="reciveuserid" name="reciveuserid"/>
+                        <div class="layui-inline layui-show-xs-block">
+                           <button class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-header" id="toolBar">
+                    @if(shiro.hasAuth("shop:leavemsg:add")){
+                        <button class="layui-btn layui-btn" id="add">
+                        <i class="layui-icon">&#xe654;</i>新增
+                        </button>
+                    @}
+                    @if(shiro.hasAuth("shop:leavemsg:edit")){
+                        <button class="layui-btn layui-btn" id="edit">
+                        <i class="layui-icon">&#xe642;</i>修改
+                        </button>
+                    @}
+                    @if(shiro.hasAuth("shop:leavemsg:del")){
+                        <button class="layui-btn layui-btn-danger" id="del">
+                        <i class="layui-icon">&#xe640;</i>删除
+                        </button>
+                    @}
+                </div>
+                <table class="layui-hide" id="tb" lay-filter="tb"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modules/shop/leavemsg/leavemsg_index.js"></script>
+@}

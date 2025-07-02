@@ -1,0 +1,17 @@
+@layout("/common/head.html"){
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单</legend>
+</fieldset>
+<form class="layui-form" action="">
+            <input type="hidden" id="id" name="id" value="${leaveMsg.id}"/>
+<#input inputName="" id="senduserid" name="senduserid" value="${leaveMsg.senduserid}"/>
+<#input inputName="" id="reciveuserid" name="reciveuserid" value="${leaveMsg.reciveuserid}"/>
+<#input inputName="" id="goodid" name="goodid" value="${leaveMsg.goodid}"/>
+<#input inputName="" id="content" name="content" value="${leaveMsg.content}"/>
+<#time timeName="" id="time" name="time" value="${leaveMsg.time}"/>
+<#input inputName="" id="reply" name="reply" value="${leaveMsg.reply}"/>
+<#button btName="修改leavemsg" filter="edit"/></form>
+<script src="${ctxPath}/static/modules/shop/leavemsg/leavemsg_edit.js"></script>
+</body>
+@}

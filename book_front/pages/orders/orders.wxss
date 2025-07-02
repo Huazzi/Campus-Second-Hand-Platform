@@ -1,0 +1,159 @@
+.Pagetitle{
+  margin: 15px;
+  border: 1rpx solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+ 
+}
+.Pagetitle text{
+  color: #666;
+  font-weight: 20px;
+  font-size: 35rpx;
+}
+.order-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar{
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 500;
+    width: 100%;
+    height: 50px;
+    flex-direction: row;
+    text-align: center;
+    color: #666;
+    font-size: 30rpx;
+    box-sizing: border-box;
+    background-color: #FFF;
+    border-bottom: 1rpx solid #DFDFDF;
+ }
+ .navbar-item{
+   flex: 1;
+   padding: 26rpx 0px;
+ }
+ .navbar-item-active{
+   transition: all 0.3s;
+   border-bottom: 1px solid red;
+   /* color: #494949; */
+ }
+ 
+ .order-content-wrapper{
+   padding-top: 60px;
+ }
+ .order-content-wrapper .swiper{
+   height: 600px;
+ }
+
+.order{
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rpx solid #ccc;
+  margin-bottom: 20px;
+  border-top: 1rpx solid #ccc;
+  border-bottom: 5px solid #ccc;
+}
+.order .heade{
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10px;
+}
+.order .heade .status{
+  color: red;
+}
+.order .heade text{
+  margin-right: 10px;
+}
+.productInfo{
+  display: flex;
+  font-size: 35rpx;
+  color: #111;
+  border-bottom: 1rpx solid #ccc;
+}
+.productInfo text{
+  margin-left: 40px;
+}
+
+.productInfo image{
+  width: 50px;
+  height: 60px;
+  margin-left: 20px;
+}
+.productInfo .titleAndPrice{
+  display: flex;
+  flex-direction: column;
+}
+.titleAndPrice text{
+  font-size: 35rpx;
+  color: #666;
+}
+.productInfo .price{
+  margin-top: 10px;
+  color: r;
+}
+
+.detail{
+  display: flex;
+  justify-content: space-between;
+}
+.detail text{
+  font-size: 28rpx;
+  color: #777;
+}
+.detail .total{
+  margin-right: 30px;
+}
+.detail .total text{
+  font-size: 35rpx;
+  color: red;
+}
+.go{
+  margin-top: 10px;
+  position: relative;
+  left: 140px;
+}
+.go button{
+  width: 90px;
+  height: 30px;
+  background-color: red;
+  line-height: 30px;
+  font-size: 30rpx;
+  color: white;
+}
+
+.empty{
+  display: flex;
+}
+.empty image{
+ height: 140px;
+ width: 275px;
+}
+.empty text{
+  margin-top: 40px;
+  font-size: 30rpx;
+}
+.desc{
+  display: flex;
+  margin-left: 50px;
+}
+.goShop{
+  color: white;
+  border:1px solid red;
+  background-color: orangered;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.go .status{
+  margin-top: 5px;
+   color: green;
+   font-size: 28rpx;
+   position: absolute;
+   left: 182px;
+
+}
+

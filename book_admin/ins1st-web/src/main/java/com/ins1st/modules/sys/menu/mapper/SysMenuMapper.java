@@ -1,0 +1,16 @@
+package com.ins1st.modules.sys.menu.mapper;
+
+import com.ins1st.modules.sys.menu.entity.SysMenu;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+ * <p>
+ * 系统菜单表 Mapper 接口
+ * </p>
+ *
+ * @author sun
+ * @since 2019-05-07
+ */
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
+
+}

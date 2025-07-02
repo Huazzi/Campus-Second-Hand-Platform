@@ -1,0 +1,27 @@
+ version: '3'
+
+services:
+  recommendation-api:
+    build: .
+    container_name: recommendation-api
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=${DB_HOST:-localhost}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_NAME=${DB_NAME:-second_hand}
+      - DB_USER=${DB_USER:-root}
+      - DB_PASS=${DB_PASS:-123456}
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./app:/app/app
+      - ./.env:/app/.env
+    networks:
+      - recommendation-network
+
+networks:
+  recommendation-network:
+    driver: bridge

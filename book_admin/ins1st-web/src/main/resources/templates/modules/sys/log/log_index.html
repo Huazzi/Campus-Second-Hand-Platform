@@ -1,0 +1,54 @@
+@layout("/common/head.html"){
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+                            <div class="layui-inline layui-show-xs-block">
+                               <input class="layui-input"  autocomplete="off" placeholder="ID" name="id" id="id">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                               <input class="layui-input"  autocomplete="off" placeholder="日志标题" name="title" id="title">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                               <input class="layui-input"  autocomplete="off" placeholder="记录参数" name="params" id="params">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                               <input class="layui-input"  autocomplete="off" placeholder="执行类" name="className" id="className">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                               <input class="layui-input"  autocomplete="off" placeholder="执行方法" name="method" id="method">
+                            </div>
+                            <div class="layui-inline layui-show-xs-block">
+                               <input class="layui-input"  autocomplete="off" placeholder="创建时间" name="createTime" id="createTime">
+                            </div>
+                        <div class="layui-inline layui-show-xs-block">
+                           <button class="layui-btn"  lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-header" id="toolBar">
+                    @if(shiro.hasAuth("sys:log:add")){
+                        <button class="layui-btn layui-btn" id="add">
+                        <i class="layui-icon">&#xe654;</i>新增
+                        </button>
+                    @}
+                    @if(shiro.hasAuth("sys:log:edit")){
+                        <button class="layui-btn layui-btn" id="edit">
+                        <i class="layui-icon">&#xe642;</i>修改
+                        </button>
+                    @}
+                    @if(shiro.hasAuth("sys:log:del")){
+                        <button class="layui-btn layui-btn-danger" id="del">
+                        <i class="layui-icon">&#xe640;</i>删除
+                        </button>
+                    @}
+                </div>
+                <table class="layui-hide" id="tb" lay-filter="tb"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modules/sys/log/log_index.js"></script>
+@}
