@@ -87,7 +87,6 @@ public class UserDaoImpl implements IUserDao{
 				user.setOpenid(rs.getString("openid"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DBUtil.close(rs);
@@ -121,7 +120,6 @@ public class UserDaoImpl implements IUserDao{
 				user.setOpenid(rs.getString("openid"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			DBUtil.close(rs);

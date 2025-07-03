@@ -66,7 +66,7 @@ public class LeaveMsgDaoImpl implements ILeaveMsgDao{
 				
 				User send = userDao.findById(rs.getInt("senduserid"));
 				User receive = userDao.findById(rs.getInt("reciveuserid"));
-				Good good = goodDao.load(rs.getInt("goodid"));
+				Good good = goodDao.loadById(rs.getInt("goodid"));
 				LeaveMsg leaveMsg = new LeaveMsg();
 				leaveMsg.setId(rs.getInt("id"));
 				leaveMsg.setSend(send);

@@ -26,8 +26,8 @@ Page({
     let app = getApp()
     this.setData({appInstance:app})
     
-    // 获取商品ID，支持多种参数名称：goodId、bookId、id
-    let itemId = options.goodId || options.bookId || options.id;
+    // 获取商品ID，支持多种参数名称：goodId、id
+    let itemId = options.goodId || options.id;
     
     console.log("获取到的商品ID:", itemId);
     

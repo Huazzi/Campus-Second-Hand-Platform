@@ -2,7 +2,6 @@ package com.zhuanzhuan.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zhuanzhuan.dao.FeedbackDaoImpl;
 import com.zhuanzhuan.dao.GoodDaoImpl;
 import com.zhuanzhuan.dao.OrderDaoImpl;
 import com.zhuanzhuan.dao.CategoryDaoImpl;
-import com.zhuanzhuan.model.Feedback;
 import com.zhuanzhuan.model.Good;
 import com.zhuanzhuan.model.Order;
 import com.zhuanzhuan.model.Category;
@@ -40,7 +37,7 @@ public class AddOrderServlet extends HttpServlet {
 		String goodId = request.getParameter("goodid");
 		GoodDaoImpl goodDao = DaoFactory.getGoodDao();
 		CategoryDaoImpl categoryDao = DaoFactory.getCategoryDao();
-		Good good = goodDao.load(Integer.valueOf(goodId));
+		Good good = goodDao.loadById(Integer.valueOf(goodId));
 		Category category = categoryDao.findById(good.getCategoryId());
 		Integer goodOwnerId = good.getGoodowner().getId();
 		String price = String.valueOf(good.getPrice());

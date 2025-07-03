@@ -63,7 +63,7 @@ public class GoodDaoImpl implements IGoodDao {
 
 	@Override
 	public Good findById(int id) {
-		return load(id);
+		return loadById(id);
 	}
 
 	@Override
@@ -169,18 +169,28 @@ public class GoodDaoImpl implements IGoodDao {
 	 * @return 对象
 	 */
 	@Override
-	public Good load(int id) {
+	public Good loadById(int id) {
 		Connection connection = DBUtil.getConnection();
-		String sql = "SELECT *, (SELECT COUNT(*) FROM collect WHERE goodId = g.id) AS collect, (SELECT COUNT(*) FROM leave_msg WHERE goodid = g.id) AS leave_msg FROM goods g WHERE id = ?";
+		// 使用LEFT JOIN关联表并添加状态和数量过滤
+		String sql = "SELECT g.*, " +
+				"COUNT(DISTINCT l.id) AS leave_msg, " +
+				"COUNT(DISTINCT c.userId) AS collect " +
+				"FROM goods g " +
+				"LEFT JOIN leave_msg l ON g.id = l.goodid " +
+				"LEFT JOIN collect c ON g.id = c.goodId " +
+				"WHERE g.id = ? AND g.status = 0 AND g.num > 0 " +
+				"GROUP BY g.id";
+
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Good good = null;
+
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			while (rs.next()) {
 
+			if (rs.next()) { // 使用if确保只处理单条记录
 				UserDaoImpl userDao = DaoFactory.getUserDao();
 				User user = userDao.findById(rs.getInt("goodownerid"));
 
@@ -196,9 +206,15 @@ public class GoodDaoImpl implements IGoodDao {
 				good.setTime(rs.getTimestamp("time"));
 				good.setLeaveMsgNum(rs.getInt("leave_msg"));
 				good.setCollectNum(rs.getInt("collect"));
-				good.setViewCount(rs.getInt("view_count"));
-				good.setInquiryCount(rs.getInt("inquiry_count"));
-				good.setLocation(rs.getString("location"));
+
+				// 安全获取可选字段
+				try {
+					good.setViewCount(rs.getInt("view_count"));
+					good.setInquiryCount(rs.getInt("inquiry_count"));
+					good.setLocation(rs.getString("location"));
+				} catch (SQLException e) {
+					// 忽略字段不存在的情况
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -208,6 +224,52 @@ public class GoodDaoImpl implements IGoodDao {
 			DBUtil.close(connection);
 		}
 		return good;
+		// Connection connection = DBUtil.getConnection();
+		// String sql = "SELECT
+		// id,goodname,goodownerid,price,description,image,num,category_id,time,
+		// COUNT(DISTINCT lid) leave_msg,COUNT(DISTINCT userId) collect FROM goods WHERE
+		// id = ?";
+		// // 根据分类id查找分类名等信息
+		// String sql2 = "SELECT category_name FROM categories WHERE id = ?";
+		// PreparedStatement ps = null;
+		// ResultSet rs = null;
+		// Good good = null;
+		// try {
+		// ps = connection.prepareStatement(sql);
+		// ps.setInt(1, id);
+		// rs = ps.executeQuery();
+		// while (rs.next()) {
+		//
+		// UserDaoImpl userDao = DaoFactory.getUserDao();
+		// User user = userDao.findById(rs.getInt("goodownerid"));
+		//
+		// good = new Good();
+		// good.setId(rs.getInt("id"));
+		// good.setGoodname(rs.getString("goodname"));
+		// good.setGoodowner(user);
+		// good.setPrice(rs.getDouble("price"));
+		// good.setDescription(rs.getString("description"));
+		// good.setImages(rs.getString("image"));
+		// good.setNum(rs.getInt("num"));
+		// good.setCategoryId(rs.getInt("catagory_id"));
+		// good.setTime(rs.getTimestamp("time"));
+		// good.setLeaveMsgNum(rs.getInt("leave_msg"));
+		// good.setCollectNum(rs.getInt("collect"));
+		// }
+		// } catch (SQLException e) {
+		// e.printStackTrace();
+		// } finally {
+		// DBUtil.close(rs);
+		// DBUtil.close(ps);
+		// DBUtil.close(connection);
+		// }
+		// return good;
+	}
+
+	@Override
+	public Good load(int id) {
+		// 直接调用优化后的 loadById 方法
+		return this.loadById(id);
 	}
 
 	/**
@@ -259,13 +321,13 @@ public class GoodDaoImpl implements IGoodDao {
 
 	/**
 	 * @Description 根据条件查询商品
-	 * @param goodname   名称
+	 * @param goodName   名称
 	 * @param categoryId 分类ID
 	 * @param minPrice   最低价格
 	 * @param maxPrice   最高价格
 	 * @return 列表
 	 */
-	public List<Good> loadWithCondition(String goodname, int categoryId, double minPrice, double maxPrice, int start,
+	public List<Good> loadWithCondition(String goodName, int categoryId, double minPrice, double maxPrice, int start,
 			int end) {
 		Connection connection = DBUtil.getConnection();
 		String sql;
@@ -275,26 +337,36 @@ public class GoodDaoImpl implements IGoodDao {
 
 		try {
 			// 如果分类ID为0，则不筛选分类
+			// 修改后的SQL部分（确保LIMIT参数非负）
 			if (categoryId == 0) {
-				sql = "SELECT id,goodname,goodownerid,price,description,image,num,category_id,time,view_count,inquiry_count,location, (SELECT COUNT(*) FROM collect WHERE goodId = g.id) AS collect, (SELECT COUNT(*) FROM leave_msg WHERE goodid = g.id) AS leave_msg FROM goods g WHERE goodname like ? and price > ? and price < ? and num > 0 ORDER BY time DESC LIMIT ?,?";
+				sql = "SELECT id,goodname,goodownerid,price,description,image,num,category_id,time,view_count,inquiry_count,location, " +
+						"(SELECT COUNT(*) FROM collect WHERE goodId = g.id) AS collect, " +
+						"(SELECT COUNT(*) FROM leave_msg WHERE goodid = g.id) AS leave_msg " +
+						"FROM goods g " +
+						"WHERE goodname like ? and price > ? and price < ? and num > 0 " +
+						"ORDER BY time DESC LIMIT ?, ?";
 
 				ps = connection.prepareStatement(sql);
-				ps.setString(1, "%" + goodname + "%");
+				ps.setString(1, "%" + goodName + "%");
 				ps.setDouble(2, minPrice);
 				ps.setDouble(3, maxPrice);
 				ps.setInt(4, start);
-				ps.setInt(5, end - start); // 计算行数
+				ps.setInt(5, Math.max(end - start, 0)); // 确保LIMIT值非负
 			} else {
-				// 有特定分类筛选
-				sql = "SELECT id,goodname,goodownerid,price,description,image,num,category_id,time,view_count,inquiry_count,location, (SELECT COUNT(*) FROM collect WHERE goodId = g.id) AS collect, (SELECT COUNT(*) FROM leave_msg WHERE goodid = g.id) AS leave_msg FROM goods g WHERE goodname like ? and category_id = ? and price > ? and price < ? and num > 0 ORDER BY time DESC LIMIT ?,?";
+				sql = "SELECT id,goodname,goodownerid,price,description,image,num,category_id,time,view_count,inquiry_count,location, " +
+						"(SELECT COUNT(*) FROM collect WHERE goodId = g.id) AS collect, " +
+						"(SELECT COUNT(*) FROM leave_msg WHERE goodid = g.id) AS leave_msg " +
+						"FROM goods g " +
+						"WHERE goodname like ? and category_id = ? and price > ? and price < ? and num > 0 " +
+						"ORDER BY time DESC LIMIT ?, ?";
 
 				ps = connection.prepareStatement(sql);
-				ps.setString(1, "%" + goodname + "%");
+				ps.setString(1, "%" + goodName + "%");
 				ps.setInt(2, categoryId);
 				ps.setDouble(3, minPrice);
 				ps.setDouble(4, maxPrice);
 				ps.setInt(5, start);
-				ps.setInt(6, end - start); // 计算行数
+				ps.setInt(6, Math.max(end - start, 0)); // 确保LIMIT值非负
 			}
 
 			rs = ps.executeQuery();
@@ -675,9 +747,11 @@ public class GoodDaoImpl implements IGoodDao {
 		// 分页查询商品信息
 		Connection connection = DBUtil.getConnection();
 		String sql = "SELECT g.id, g.goodname, g.goodownerid, g.price, g.description, g.image, g.num, c.name as category_name, g.time, "
-				+ "COUNT(DISTINCT lid) leave_msg, COUNT(DISTINCT collect.userId) collect "
+				+ "COUNT(DISTINCT l.id) leave_msg, COUNT(DISTINCT col.userId) collect "
 				+ "FROM goods g "
 				+ "JOIN categories c ON g.category_id = c.id "
+				+ "LEFT JOIN leave_msg l ON g.id = l.goodid "
+				+ "LEFT JOIN collect col ON g.id = col.goodId "
 				+ "GROUP BY g.id, g.time "
 				+ "ORDER BY g.time DESC "
 				+ "LIMIT ?,?";

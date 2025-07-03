@@ -89,6 +89,8 @@ public interface IGoodDao {
 
 	public List<Good> loadByUser(int userId);
 
+	public Good loadById(int id);
+
 	public Good load(int id);
 
 	public int collect(int userId, int goodId);

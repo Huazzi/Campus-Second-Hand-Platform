@@ -81,7 +81,7 @@ public class MessageDaoImpl implements IMessageDao {
 				message.setStatus(resultSet.getInt("status"));
 				message.setTime(resultSet.getTimestamp("time"));
 				message.setTitle(resultSet.getString("title"));
-				message.setGood(goodDao.load(resultSet.getInt("goodid")));
+				message.setGood(goodDao.loadById(resultSet.getInt("goodid")));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -120,7 +120,7 @@ public class MessageDaoImpl implements IMessageDao {
 				message.setStatus(resultSet.getInt("status"));
 				message.setTime(resultSet.getTimestamp("time"));
 				message.setTitle(resultSet.getString("title"));
-				message.setGood(goodDao.load(resultSet.getInt("goodid")));
+				message.setGood(goodDao.loadById(resultSet.getInt("goodid")));
 				messages.add(message);
 			}
 		} catch (Exception e) {
@@ -158,7 +158,7 @@ public class MessageDaoImpl implements IMessageDao {
 				message.setStatus(resultSet.getInt("status"));
 				message.setTime(resultSet.getTimestamp("time"));
 				message.setTitle(resultSet.getString("title"));
-				message.setGood(goodDao.load(resultSet.getInt("goodid")));
+				message.setGood(goodDao.loadById(resultSet.getInt("goodid")));
 				messages.add(message);
 			}
 		} catch (Exception e) {
@@ -208,7 +208,7 @@ public class MessageDaoImpl implements IMessageDao {
 				message.setStatus(resultSet.getShort("status"));
 				message.setTime(resultSet.getTimestamp("time"));
 				message.setTitle(resultSet.getString("title"));
-				message.setGood(goodDao.load(resultSet.getInt("goodid")));
+				message.setGood(goodDao.loadById(resultSet.getInt("goodid")));
 				messages.add(message);
 			}
 		} catch (Exception e) {
@@ -296,7 +296,7 @@ public class MessageDaoImpl implements IMessageDao {
 				message.setStatus(resultSet.getShort("status"));
 				message.setTime(resultSet.getTimestamp("time"));
 				message.setTitle(resultSet.getString("title"));
-				message.setGood(goodDao.load(goodid));
+				message.setGood(goodDao.loadById(goodid));
 				messages.add(message);
 			}
 		} catch (Exception e) {

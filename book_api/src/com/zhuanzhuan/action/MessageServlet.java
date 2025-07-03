@@ -71,7 +71,7 @@ public class MessageServlet extends HttpServlet {
 			LeaveMsgDaoImpl leaveMsgDao = DaoFactory.getLeaveMsgDao();
 			User sendU = userDao.findById(sendid);
 			User receiveU = userDao.findById(receiveid);
-			Good goodG = goodDao.load(goodid);
+			Good goodG = goodDao.loadById(goodid);
 			LeaveMsg leaveMsg = new LeaveMsg(sendU, receiveU, goodG, content, time, replyid);
 			leaveMsgDao.add(leaveMsg);
 			writer.print("{'status':'OK'}");
@@ -137,7 +137,7 @@ public class MessageServlet extends HttpServlet {
 			GoodDaoImpl goodDao = new GoodDaoImpl();
 			User send = userDao.findById(send_value);
 			User receive = userDao.findById(receive_value);
-			Good good = goodDao.load(good_value);
+			Good good = goodDao.loadById(good_value);
 			Message message = new Message(send, receive, good, 0, msg, new Timestamp(System.currentTimeMillis()),
 					"用户消息");
 			MessageDaoImpl messageDao = new MessageDaoImpl();

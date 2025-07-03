@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.zhuanzhuan.model.Good;
@@ -112,7 +111,7 @@ public class OrderDaoImpl implements IOrderDao {
 				UserDaoImpl userDao = DaoFactory.getUserDao();
 				User user = userDao.findById(rs.getInt("goodownerid"));
 				GoodDaoImpl goodDao = DaoFactory.getGoodDao();
-				Good good = goodDao.load(rs.getInt("goodid"));
+				Good good = goodDao.loadById(rs.getInt("goodid"));
 				Order order = new Order();
 				order.setUser(user);
 				order.setGood(good);
@@ -154,7 +153,7 @@ public class OrderDaoImpl implements IOrderDao {
 				UserDaoImpl userDao = DaoFactory.getUserDao();
 				User user = userDao.findById(rs.getInt("goodownerid"));
 				GoodDaoImpl goodDao = DaoFactory.getGoodDao();
-				Good good = goodDao.load(rs.getInt("goodid"));
+				Good good = goodDao.loadById(rs.getInt("goodid"));
 				Order order = new Order();
 				order.setUser(user);
 				order.setGood(good);

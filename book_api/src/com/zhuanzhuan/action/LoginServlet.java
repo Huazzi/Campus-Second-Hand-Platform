@@ -17,9 +17,9 @@ import com.zhuanzhuan.util.WX;
 
 
 /**  
- * @Description: ��¼�Ի�ȡ�û���С�����ڵ�ID  
- * @author ��־ǿ  
- * @date 2018��4��14��    
+ * @Description: 登录Servlet
+ * @author Huazzi
+ * @date 2025年7月2日 下午
  */  
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -30,7 +30,6 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -39,8 +38,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String openid = null;
-		
-		/** ��ȡappid **/
+		response.setContentType("application/json;charset=utf-8");
 		PrintWriter writer = response.getWriter();
 		String code = request.getParameter("code");
 
@@ -48,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 		Pattern reg = Pattern.compile(pattern);
 		
 		System.out.println("code" + code);
-		if (!(code == null || "".equals(code))) {
+		if (!(code == null || code.isEmpty())) {
 			
 			String data = WX.getAppId(code);
 			Matcher matcher = reg.matcher(data);
@@ -58,13 +56,12 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		System.out.println("apid:" + openid);
-		
-		/****ͨ��appid����user***/
+
+		// 如果openid不为空，则说明用户已经登录
 		if (openid != null) {
-			
 			UserDaoImpl userDao = DaoFactory.getUserDao();
 			User user = userDao.loadByAppId(openid);
-			//����û�δע��ת׬
+			//
 			if (user == null) {
 				String nickName = request.getParameter("nickname");
 				String head = request.getParameter("head");
@@ -76,14 +73,13 @@ public class LoginServlet extends HttpServlet {
 				user.setNickname(nickName);
 				user.setHead(head.trim());
 				user.setSex(gender);
-				user.setCollege("石家庄铁道大学");
+				user.setCollege("郑州大学");
 				
 				System.out.println(nickName);
 				userDao.add(user);
 				user = userDao.loadByAppId(openid);
 			}
 			System.out.println("用户：" + user.toJson().toString());
-//			response.setContentType("application/json");
 			
 			writer.write(user.toJson().toString());
 		}
@@ -94,7 +90,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

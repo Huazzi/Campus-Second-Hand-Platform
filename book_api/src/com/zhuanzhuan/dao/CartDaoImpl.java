@@ -66,7 +66,7 @@ public class CartDaoImpl implements ICartDao {
 			while (rs.next()) {
 				User owner = userDao.findById(rs.getInt("goodownerid"));
 				User user = userDao.findById(rs.getInt("cartuser"));
-				Good good = goodDao.load(rs.getInt("goodid"));
+				Good good = goodDao.loadById(rs.getInt("goodid"));
 				Cart cart = new Cart();
 				cart.setId(rs.getInt("id"));
 				cart.setCartnum(rs.getInt("cartnum"));

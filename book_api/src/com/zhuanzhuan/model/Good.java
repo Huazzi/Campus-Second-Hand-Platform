@@ -227,5 +227,4 @@ public class Good {
 
 		return jsonObject;
 	}
-
 }

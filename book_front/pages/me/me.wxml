@@ -1,118 +1,136 @@
 <!--pages/me/me.wxml-->
-<view>
+<view class="container">
 
   <!--  页头  -->
   <view class='header'>
-    <view style='display:flex;margin-left:20rpx;'>
-      <image src='{{userInfo.avatarUrl}}' class='head'></image>
-      <view style='margin-left:16rpx'>
-        <view style='font-size:40rpx;font-weight:bold'>{{userInfo.nickName}}</view>
-        <view style='font-size:28rpx'>用户ID:{{userInfo.userId}}</view>
+    <view class="user-info">
+      <image src='{{userInfo.avatarUrl}}' class='user-avatar'></image>
+      <view class="user-details">
+        <view class="user-name">{{userInfo.nickName}}</view>
+        <view class="user-id">用户ID: {{userInfo.userId}}</view>
       </view>
     </view>
-    <view>
-      <navigator id='update_user' url='/pages/update_userInfo/update_userInfo' hover-class='none'><text style='font-size:28rpx'>修改个人资料</text><text style='font-weight:bold;margin-right:16rpx;'>></text></navigator>
-    </view>
+    <navigator id='update_user' url='/pages/update_userInfo/update_userInfo' hover-class='none' class="edit-profile">
+      <text class="edit-profile-text">修改个人资料</text>
+      <text class="arrow-icon">></text>
+    </navigator>
   </view>
 
   <!--  内容  -->
- 
-  <view style='background-color:white'>
-    <navigator url='/pages/released_goods/released'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/add_good.png' style='width:50rpx;height:50rpx'></image>
-          <text>我发布的</text>
+  <view class="feature-container">
+    <view class="feature-group">
+      <view class="feature-title">我的交易</view>
+      <navigator url='/pages/released_goods/released'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/add_good.png' class='feature-icon'></image>
+            <text class="feature-name">我发布的</text>
+          </view>
+          <view class="feature-value">
+            <text class="feature-badge" wx:if="{{statistic.released > 0}}">{{statistic.released}}</text>
+            <text>></text>
+          </view>
         </view>
-        <view>
-          {{statistic.released}} >
+      </navigator>
+      
+      <navigator url='/pages/orders/orders'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/order_buy.png' class='feature-icon'></image>
+            <text class="feature-name">我购买的订单</text>
+          </view>
+          <view class="feature-value">
+            <text class="feature-badge" wx:if="{{statistic.bought > 0}}">{{statistic.bought}}</text>
+            <text>></text>
+          </view>
         </view>
-      </view>
-    </navigator>
-    
-    <navigator url='/pages/orders/orders'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/order_buy.png' style='width:50rpx;height:50rpx'></image>
-          <text>我购买的订单</text>
-        </view>
-        <view>
-          {{statistic.bought}} >
-        </view>
-      </view>
-    </navigator>
+      </navigator>
 
-   <navigator url='/pages/orders_sell/orders_sell'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/order_sell.png' style='width:50rpx;height:50rpx'></image>
-          <text>我卖出的订单</text>
+      <navigator url='/pages/orders_sell/orders_sell'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/order_sell.png' class='feature-icon'></image>
+            <text class="feature-name">我卖出的订单</text>
+          </view>
+          <view class="feature-value">
+            <text class="feature-badge" wx:if="{{statistic.sold > 0}}">{{statistic.sold}}</text>
+            <text>></text>
+          </view>
         </view>
-        <view>
-          {{statistic.sold}} >
-        </view>
-      </view>
-    </navigator>
-   
-   <navigator url='/pages/course_schedule/course_schedule'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/course.png' style='width:50rpx;height:50rpx'></image>
-          <text>我的课程表</text>
-        </view>
-        <view>
-           >
-        </view>
-      </view>
-    </navigator>
-   
-   <navigator url='/pages/update_userInfo/addr/addr'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/feedback.png' style='width:50rpx;height:50rpx'></image>
-          <text>地址管理</text>
-        </view>
-        <view>
-           >
-        </view>
-      </view>
-    </navigator>
+      </navigator>
 
-    <navigator url='/pages/collected_goods/collected'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/favorite.png' style='width:50rpx;height:50rpx'></image>
-          <text>我收藏的</text>
+      <navigator url='/pages/collected_goods/collected'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/favorite.png' class='feature-icon'></image>
+            <text class="feature-name">我收藏的</text>
+          </view>
+          <view class="feature-value">
+            <text class="feature-badge" wx:if="{{statistic.collect > 0}}">{{statistic.collect}}</text>
+            <text>></text>
+          </view>
         </view>
-        <view>
-          {{statistic.collect}} >
-        </view>
-      </view>
-    </navigator>
-
-    <navigator url='/pages/feedback/feedback'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/feedback.png' style='width:50rpx;height:50rpx'></image>
-          <text>反馈/建议</text>
-        </view>
-        <view>
-           >
-        </view>
-      </view>
-    </navigator>
-
-    <navigator url='/pages/about/about'>
-      <view class='setting_list'>
-        <view class='m'>
-          <image src='/image/about.png' style='width:50rpx;height:50rpx'></image>
-          <text>关于</text>
-        </view>
-        <view>
-           >
-        </view>
-      </view>
-    </navigator>
-
+      </navigator>
+    </view>
   </view>
+
+  <view class="feature-container">
+    <view class="feature-group">
+      <view class="feature-title">我的工具</view>
+      <navigator url='/pages/course_schedule/course_schedule'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/course.png' class='feature-icon'></image>
+            <text class="feature-name">我的课程表</text>
+          </view>
+          <view class="feature-value">
+            <text>></text>
+          </view>
+        </view>
+      </navigator>
+      
+      <navigator url='/pages/update_userInfo/addr/addr'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/location.png' class='feature-icon'></image>
+            <text class="feature-name">地址管理</text>
+          </view>
+          <view class="feature-value">
+            <text>></text>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+
+  <view class="feature-container">
+    <view class="feature-group">
+      <view class="feature-title">应用设置</view>
+      <navigator url='/pages/feedback/feedback'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/feedback.png' class='feature-icon'></image>
+            <text class="feature-name">反馈/建议</text>
+          </view>
+          <view class="feature-value">
+            <text>></text>
+          </view>
+        </view>
+      </navigator>
+
+      <navigator url='/pages/about/about'>
+        <view class='setting_list'>
+          <view class='m'>
+            <image src='/image/about.png' class='feature-icon'></image>
+            <text class="feature-name">关于</text>
+          </view>
+          <view class="feature-value">
+            <text>></text>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+
+  <view class="version-info">二货来了 v1.0</view>
 </view>

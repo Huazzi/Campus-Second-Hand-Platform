@@ -96,7 +96,7 @@ public class AddGoodServlet extends HttpServlet {
 					}
 
 					GoodDaoImpl goodDao = DaoFactory.getGoodDao();
-					Good good = goodDao.load(goodId);
+					Good good = goodDao.loadById(goodId);
 					good.setImages(good.getImagesStr() + imgStr);
 					goodDao.update(good);
 				}

@@ -44,10 +44,10 @@
         "selectedIconPath": "/image/home_selected.png"
       },
       {
-      "pagePath": "pages/recommendations/recommendations",
-      "text": "推荐",
-      "iconPath": "/image/recommend.png",
-      "selectedIconPath": "image/recommend_selected.png"
+        "pagePath": "pages/shopchart/shopchart",
+        "text": "购物车",
+        "iconPath": "/image/shopcart.png",
+        "selectedIconPath": "/image/shopcart_selected.png"
       },
       {
         "pagePath": "pages/add_good/add_good",

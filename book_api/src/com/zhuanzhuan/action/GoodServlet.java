@@ -48,7 +48,7 @@ public class GoodServlet extends HttpServlet {
 			if ("delete".equals(action)) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				// 根据id查找到商品信息，将数量修改为-1
-				Good good = goodDao.load(id);
+				Good good = goodDao.loadById(id);
 				good.setNum(-1);
 				try {
 					goodDao.update(good);
@@ -68,18 +68,13 @@ public class GoodServlet extends HttpServlet {
 				// 增加浏览次数
 				goodDao.incrementViewCount(id);
 
-				// 设置响应类型为JSON
-				response.setContentType("application/json");
-				// 获取PrintWriter对象
-				PrintWriter out = response.getWriter();
-				// 输出响应头
-				out.println("{\"status\":\"OK\"}");
-				out.flush();
 				// 根据id查找商品
-				Good good = goodDao.load(id);
-				if (good == null) { // 出错
-					writer.print("{\"err\":\"系统内部错误\"}");
+				Good good = goodDao.loadById(id);
+				if (good == null) { // 商品未找到或不满足条件
+					// 返回一个空的JSON对象，让前端的判断逻辑触发“未找到商品信息”
+					writer.print("{}");
 				} else {
+					// 直接返回商品信息的JSON
 					writer.print(good.toJson().toString());
 				}
 			}

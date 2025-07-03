@@ -1,37 +1,175 @@
 /* pages/me/me.wxss */
-/*页面头部*/
-.header{
-  background-color:#7EC0EE;
-  display: flex;
-  direction: right;
-  justify-content:space-between;
-  align-items: center;
-  color: white;
-  padding-top: 50rpx;
-  padding-bottom: 50rpx;
+page {
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
 }
 
-/*测试框*/
-.test_border{
-  border:solid 1rpx white;
+.container {
+  padding-bottom: 30rpx;
+}
+
+/*页面头部*/
+.header {
+  background: linear-gradient(135deg, #7ec0ee 0%, #5baae0 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 50rpx 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.user-avatar {
+  width: 130rpx;
+  height: 130rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+.user-details {
+  margin-left: 24rpx;
+}
+
+.user-name {
+  font-size: 38rpx;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.user-id {
+  font-size: 26rpx;
+  opacity: 0.9;
+}
+
+.edit-profile {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 12rpx 24rpx;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.edit-profile:active {
+  transform: scale(0.95);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.edit-profile-text {
+  margin-right: 8rpx;
+}
+
+.arrow-icon {
+  font-weight: bold;
+}
+
+/*功能卡片容器*/
+.feature-container {
+  background-color: white;
+  border-radius: 16rpx;
+  margin: 20rpx;
+  padding: 10rpx 0;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.feature-group {
+  margin-bottom: 20rpx;
+}
+
+.feature-title {
+  font-size: 28rpx;
+  color: #888;
+  padding: 20rpx 30rpx 10rpx;
 }
 
 /*个人页面选项*/
-.setting_list{
+.setting_list {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 0 20rpx;
-  padding: 20rpx 0;
+  padding: 24rpx 10rpx;
   align-items: center;
-  height: 50rpx;
-  align-content: center;
-  border-bottom: solid 2rpx #eeeeee;
+  border-bottom: solid 1rpx #f0f0f0;
+  transition: background-color 0.2s ease;
 }
-.setting_list .m{
+
+.setting_list:active {
+  background-color: #f9f9f9;
+}
+
+.setting_list:last-child {
+  border-bottom: none;
+}
+
+.m {
   display: flex;
   align-items: center;
 }
-.m image{
-  margin-right: 10rpx;
+
+.feature-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+  background: linear-gradient(135deg, #e6f2ff 0%, #d1e9ff 100%);
+  padding: 10rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+}
+
+.feature-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.feature-value {
+  font-size: 28rpx;
+  color: #888;
+  display: flex;
+  align-items: center;
+}
+
+.feature-badge {
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  margin-right: 8rpx;
+  min-width: 28rpx;
+  text-align: center;
+}
+
+.version-info {
+  text-align: center;
+  margin-top: 60rpx;
+  color: #aaa;
+  font-size: 24rpx;
 }
