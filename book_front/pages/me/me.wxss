@@ -36,6 +36,18 @@ page {
   z-index: 0;
 }
 
+.credit-score {
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+}
+
+.score {
+  font-weight: bold;
+  color: #FFD700;
+  margin-left: 10rpx;
+}
+
 .user-info {
   display: flex;
   align-items: center;

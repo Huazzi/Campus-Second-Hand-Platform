@@ -27,7 +27,7 @@ Page({
     this.setData({ appInstance: app })
     
     // 设置导航栏标题
-    wx.setNavigationBarTitle({ title: 'AI智能客服' })
+    wx.setNavigationBarTitle({ title: 'AI客服' })
 
     // 加载聊天记录
     this.loadChatHistory()
@@ -109,11 +109,9 @@ Page({
     const userId = this.data.appInstance.globalData.userInfo.userId
     
     wx.request({
-      url: this.data.appInstance.globalData.host + 'AIChat',
+      url: this.data.appInstance.globalData.ai_chat_api + '/api/v1/chat',
       method: 'POST',
       data: {
-        type: 'chat',
-        userId: userId,
         question: question
       },
       success(res) {

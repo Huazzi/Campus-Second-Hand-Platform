@@ -6,7 +6,8 @@ App({
     APPSERCET:"e320bcae5db72c81b8af57c04dad7c2c",
     host: "http://localhost:8080/book_api/",
     // baseUrl: "http://localhost:8000" // 添加推荐系统API的基础URL
-    baseUrl: "http://localhost:8080/book_api" // 修正：指向Java后端API
+    recommend_api: "http://localhost:8080/book_api", // 指向Java后端API
+    ai_chat_api: "http://localhost:8001"
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）

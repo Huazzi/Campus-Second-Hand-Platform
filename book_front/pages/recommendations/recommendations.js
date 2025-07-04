@@ -1,6 +1,6 @@
 // pages/recommendations/recommendations.js
 const app = getApp();
-const baseUrl = app.globalData.baseUrl;
+const recommend_api = app.globalData.recommend_api;
 
 Page({
   /**
@@ -72,17 +72,17 @@ Page({
           });
           return;
         }
-        url = `${baseUrl}/api/recommendations/content-based?userId=${userId}&limit=${pageSize}&offset=${(page - 1) * pageSize}`;
+        url = `${recommend_api}/api/recommendations/content-based?userId=${userId}&limit=${pageSize}&offset=${(page - 1) * pageSize}`;
         break;
       case 'popular':
-        url = `${baseUrl}/api/recommendations/popular?limit=${pageSize}&offset=${(page - 1) * pageSize}`;
+        url = `${recommend_api}/api/recommendations/popular?limit=${pageSize}&offset=${(page - 1) * pageSize}`;
         // 如果用户已登录，传递用户ID以记录推荐日志
         if (userId) {
           url += `&userId=${userId}`;
         }
         break;
       case 'new':
-        url = `${baseUrl}/api/recommendations/new-arrivals?days=7&limit=${pageSize}&offset=${(page - 1) * pageSize}`;
+        url = `${recommend_api}/api/recommendations/new-arrivals?days=7&limit=${pageSize}&offset=${(page - 1) * pageSize}`;
         // 如果用户已登录，传递用户ID以记录推荐日志
         if (userId) {
           url += `&userId=${userId}`;
@@ -97,9 +97,16 @@ Page({
         if (res.statusCode === 200 && res.data) {
           // 处理商品数据
           const newGoods = res.data;
-          
-          // 处理图片路径
+
+          // 调试：打印推荐数据
+          console.log('推荐商品数据:', newGoods);
+
+          // 处理图片路径和数据映射
           newGoods.forEach(item => {
+            // 调试：打印单个商品数据
+            console.log('商品数据:', item);
+            console.log('浏览次数:', item.viewCount);
+            console.log('收藏次数:', item.collect);
             if (item.images) {
               // 将图片路径字符串转换为数组
               item.images = item.images.split(';').filter(img => img !== '');
@@ -108,16 +115,16 @@ Page({
               if (item.images.length > 0) {
                 item.images = item.images.map(img => {
                   if (!img.startsWith('http')) {
-                    return baseUrl + '/img/goods/' + img;
+                    return recommend_api + '/img/goods/' + img;
                   }
                   return img;
                 });
               } else {
                 // 如果没有图片，添加默认图片
-                item.images = [baseUrl + '/img/goods/default_cover.png'];
+                item.images = [recommend_api + '/img/goods/default_cover.png'];
               }
             } else {
-              item.images = [baseUrl + '/img/goods/default_cover.png'];
+              item.images = [recommend_api + '/img/goods/default_cover.png'];
             }
           });
           
@@ -175,7 +182,7 @@ Page({
     }
     
     wx.request({
-      url: `${baseUrl}/api/recommendations/view`,
+      url: `${recommend_api}/api/recommendations/view`,
       method: 'POST',
       data: {
         userId: this.data.userId,
@@ -193,7 +200,7 @@ Page({
    */
   recordRecommendationClick: function(goodId) {
     wx.request({
-      url: `${baseUrl}/api/recommendations/click`,
+      url: `${recommend_api}/api/recommendations/click`,
       method: 'POST',
       data: {
         userId: this.data.userId,

@@ -20,7 +20,7 @@
   <view class="content">
     <!-- 加载中 -->
     <view class="loading" wx:if="{{isLoading}}">
-      <image class="loading-icon" src="/images/loading.gif"></image>
+      <image class="loading-icon" src="/image/loading.gif"></image>
       <text>加载推荐教材中...</text>
     </view>
     

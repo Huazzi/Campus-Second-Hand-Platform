@@ -9,7 +9,7 @@ import threading    # 导入调度器
 from app.services.content_based import update_product_similarities
 
 from app.database import get_db
-from app.models import UserView, RecommendationLog
+from app.models import UserView, RecommendationLog, Good
 from app.schemas import (
     RecommendedGood,
     RecommendationRequest,
@@ -214,6 +214,33 @@ def record_recommendation_click(
         db.rollback()
         logger.error(f"Error recording recommendation click: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to record click")
+
+
+@app.get("/api/debug/goods-data")
+async def debug_goods_data(limit: int = 10, db: Session = Depends(get_db)):
+    """调试端点：查看商品数据中的view_count和collect_count值"""
+    try:
+        goods = db.query(Good).filter(Good.status == 0, Good.num > 0).limit(limit).all()
+
+        result = []
+        for good in goods:
+            result.append({
+                "id": good.id,
+                "goodname": good.goodname,
+                "view_count": good.view_count,
+                "collect_count": getattr(good, 'collect_count', 'N/A'),
+                "inquiry_count": good.inquiry_count,
+                "status": good.status,
+                "num": good.num
+            })
+
+        return {
+            "total_goods": len(result),
+            "goods": result
+        }
+    except Exception as e:
+        logger.error(f"调试查询失败: {e}")
+        raise HTTPException(status_code=500, detail=f"调试查询失败: {str(e)}")
 
 
 def start_scheduler():

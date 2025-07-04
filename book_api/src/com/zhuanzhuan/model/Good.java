@@ -201,6 +201,11 @@ public class Good {
 		this.inquiryCount = inquiryCount;
 	}
 
+	/**
+	 * 将 Good 对象转换为 JSON 格式
+	 *
+	 * @return JsonObject
+	 */
 	public JsonObject toJson() {
 
 		JsonObject jsonObject = new JsonObject();
@@ -210,7 +215,7 @@ public class Good {
 		jsonObject.addProperty("price", price);
 		jsonObject.addProperty("description", description);
 		jsonObject.addProperty("images", images);
-		jsonObject.addProperty("num", "num");
+		jsonObject.addProperty("num", this.num);
 		jsonObject.addProperty("categoryId", categoryId);
 		jsonObject.addProperty("time", time != null ? time.toString() : null); // 添加 null 检查
 		jsonObject.addProperty("leave_msg", this.leaveMsgNum);

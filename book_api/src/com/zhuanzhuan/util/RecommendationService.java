@@ -188,6 +188,19 @@ public class RecommendationService {
                     good.setCategoryId(goodJson.get("category_id").getAsInt());
                 }
 
+                if (goodJson.has("collect") && !goodJson.get("collect").isJsonNull()) {
+                    good.setCollectNum(goodJson.get("collect").getAsInt());
+                }
+
+                // 设置其他统计字段的默认值
+                if (goodJson.has("inquiry_count") && !goodJson.get("inquiry_count").isJsonNull()) {
+                    good.setInquiryCount(goodJson.get("inquiry_count").getAsInt());
+                }
+
+                if (goodJson.has("location") && !goodJson.get("location").isJsonNull()) {
+                    good.setLocation(goodJson.get("location").getAsString());
+                }
+
                 goods.add(good);
             }
         } catch (Exception e) {

@@ -1,45 +1,58 @@
 <!--pages/update_good/update_good.wxml-->
 <view>
+  <!-- 顶部渐变装饰 -->
+  <view class="page-header"></view>
+  
   <form bindsubmit='addGood'>
     <view class='title'>
-      <input name="goodName" placeholder='标题/品类/品牌号'></input>
+      <input name="goodName" placeholder='标题/品类/品牌号' maxlength="30"></input>
       <view class='divide_line'></view>
-      <textarea name="description" placeholder='描述一下宝贝的细节或故事'></textarea>
-      <image wx:for='{{goodImgs}}' src='{{item}}' style='width:150rpx;height:150rpx;margin-left:16rpx'></image>
-      <image src='/image/plus.png' bindtap='chooseImg' style='width:150rpx;height:150rpx;margin-left:16rpx;'></image>
+      
+      <textarea name="description" placeholder='描述一下宝贝的细节或故事，如新旧程度、入手渠道、适用人群等' maxlength="500"></textarea>
+      
+      <!-- 图片展示区域 -->
+      <view class="image-container">
+        <image wx:for="{{goodImgs}}" wx:key="index" src="{{item}}" class="product-image"></image>
+        <view class="add-image" bindtap="chooseImg">
+          <image src="/image/plus.png" class="add-icon"></image>
+        </view>
+      </view>
+      
       <view class='divide_line'></view>
 
       <view class='form_item'>
-        <text>价格/元</text>
-        <input name="price" type='digit' placeholder='￥0.0' maxlength='4'></input>
+        <text>价格</text>
+        <input name="price" type='digit' placeholder='￥0.00' maxlength='6'></input>
       </view>
       <view class='divide_line'></view>
 
       <view class='form_item'>
-        <text>原价/元</text>
-        <input name="foreprice" type='digit' placeholder='￥0.0' maxlength='4' style='float:left'></input>
+        <text>原价</text>
+        <input name="foreprice" type='digit' placeholder='￥0.00' maxlength='6'></input>
       </view>
       <view class='divide_line'></view>
 
       <view class='form_item'>
         <text>商品分类</text>
-        <picker bindchange='changeCatagory' mode='selector' value='{{index}}' range='{{catagoryList}}'><view class="picker">
-      {{catagoryList[index]}}
-    </view>
+        <picker bindchange='changeCatagory' mode='selector' value='{{index}}' range='{{catagoryList}}'>
+          <view class="picker">
+            {{catagoryList[index]}}
+            <image class="picker-arrow" src="/image/arrow-right.png" wx:if="{{index == 0}}"></image>
+          </view>
         </picker>
-
       </view>
       <view class='divide_line'></view>
 
       <view class='form_item'>
         <text>交易方式</text>
-        <input name="method"></input>
+        <input name="method" placeholder="如：校内面交/快递"></input>
       </view>
     </view>
-    <view class='divide_line'></view>
 
+    <!-- 底部按钮区域 -->
     <view id='fill'></view>
-    <button form-type='submit'>确定发布</button>
+    <view class="btn-container">
+      <button form-type='submit'>确定修改</button>
+    </view>
   </form>
 </view>
-

@@ -1,21 +1,33 @@
-<!--pages/about/about.wxml-->
-<view class='contain'>
-  <view style='text-align:center;'>
-    <image id='logo' src='/image/fox.png'></image>
-    <view class='title'>二手图书交易</view>
-    <view>v1.0</view>
+<view class='about-container'>
+  <view class='header-section'>
+    <image class='logo' src='/image/erhuo-logo.jpg' mode='aspectFit'></image>
+    <view class='title'>贰货来了-校园二手交易平台</view>
+    <view class='version'>v2.0</view>
   </view>
-  <view class='contact'>
-    <view class='li'>
-      <image class='ico' src='/image/qq.png'></image>
-      <view>QQ交留：88888888</view>
-    </view>
-    <view class='li'>
-      <image class='ico' src='/image/at.png'></image>
-      <view>反馈邮箱：888888@qq.com</view>
+  
+  <view class='contact-section'>
+    <view class='contact-card'>
+      <view class='contact-item'>
+        <image class='contact-icon' src='/image/qq.png'></image>
+        <view class='contact-info'>
+          <view class='contact-label'>QQ交流</view>
+          <view class='contact-value'>2622170480</view>
+        </view>
+      </view>
+      
+      <view class='divider'></view>
+      
+      <view class='contact-item'>
+        <image class='contact-icon' src='/image/at.png'></image>
+        <view class='contact-info'>
+          <view class='contact-label'>反馈邮箱</view>
+          <view class='contact-value'>2622170480@qq.com</view>
+        </view>
+      </view>
     </view>
   </view>
-  <view class='copyright'>
-    Copyright©2025
+  
+  <view class='footer-section'>
+    <view class='copyright'>Copyright © 2025 贰货来了-校园二手交易平台</view>
   </view>
 </view>

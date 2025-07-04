@@ -41,6 +41,7 @@ class Good(Base):
     status = Column(Integer, default=0)
     view_count = Column(Integer, nullable=False, default=0)
     inquiry_count = Column(Integer, nullable=False, default=0)
+    collect_count = Column(Integer, nullable=False, default=0)
     location = Column(String(100))
     isbn = Column(String(20))
     chubanshe = Column(String(100))

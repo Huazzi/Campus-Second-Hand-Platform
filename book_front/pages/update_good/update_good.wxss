@@ -1,51 +1,159 @@
 /* pages/update_good/update_good.wxss */
-page{
-  background-color: #eeeeee;
+page {
+  background-color: #f6f7f9;
 }
-/*商品名称、描述*/
 
-.title{
-  background-color:#fefefe;
-  padding:16rpx;
+/* 页面顶部渐变装饰 */
+.page-header {
+  height: 120rpx;
+  background: linear-gradient(135deg, #3b7ff2, #5c9df3);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
 }
-.title input{
+
+/*商品名称、描述*/
+.title {
+  background-color: #ffffff;
+  padding: 32rpx;
+  margin: 24rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.title input {
   height: 100rpx;
+  font-size: 32rpx;
+  padding: 0 20rpx;
+}
+
+textarea {
+  width: 100%;
+  height: 200rpx;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+  color: #333;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.product-image {
+  width: 150rpx;
+  height: 150rpx;
+  margin: 10rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.add-image {
+  width: 150rpx;
+  height: 150rpx;
+  margin: 10rpx;
+  background-color: #f2f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rpx;
+  border: 2rpx dashed #d0d3d9;
+}
+
+.add-icon {
+  width: 60rpx;
+  height: 60rpx;
 }
 
 /*价格*/
-
-.form_item{
+.form_item {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-}
-.form_item text{
-  width:160rpx;
-}
-.form_item input{
-  text-align: right;
-  width: 300rpx;
-}
-picker{
-  padding: 25.5rpx;
-}
-/*确定按钮*/
-button{
-  background-color: red;
-  border: solid 30rpx white;
-  position: fixed;
-  bottom:0;
-  color: white;
-  width: 100%;
-  font-family: "微软雅黑" 
+  padding: 24rpx 0;
+  min-height: 80rpx;
 }
 
-#fill{
-  height: 60px;
-  border: solid 30rpx white;
-  bottom:0;
-  color: white;
+.form_item text {
+  width: 180rpx;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.form_item input {
+  text-align: right;
+  width: 300rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+picker {
+  width: 300rpx;
+}
+
+.picker {
+  text-align: right;
+  font-size: 28rpx;
+  color: #666;
+  padding: 4rpx 0;
+}
+
+.divide_line {
+  height: 1rpx;
+  background-color: #eaeaea;
+  margin: 8rpx 0;
+}
+
+/* 分类选择器右侧箭头 */
+.picker-arrow {
+  margin-left: 10rpx;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+/* 确定按钮 */
+.btn-container {
+  padding: 30rpx;
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  font-family: "微软雅黑" 
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+button {
+  background: linear-gradient(135deg, #ff4e50, #f9d423);
+  border-radius: 50rpx;
+  color: white;
+  font-size: 32rpx;
+  font-weight: 500;
+  padding: 20rpx 0;
+  box-shadow: 0 6rpx 10rpx rgba(255, 78, 80, 0.2);
+}
+
+button::after {
+  border: none;
+}
+
+button:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+#fill {
+  height: 160rpx;
+}
+
+/* 给输入框添加焦点样式 */
+input:focus,
+textarea:focus {
+  border-bottom: 2rpx solid #3b7ff2;
 }

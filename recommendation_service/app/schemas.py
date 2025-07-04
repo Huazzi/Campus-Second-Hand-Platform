@@ -83,6 +83,7 @@ class RecommendedGood(BaseModel):
     view_count: int
     category_id: Optional[int]
     similarity_score: Optional[float] = None
+    collect: int = 0
     
     class Config:
         orm_mode = True

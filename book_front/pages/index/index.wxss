@@ -205,6 +205,11 @@ swiper {
   margin-right: 8rpx;
 }
 
+.stat-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
 /* 价格标签样式 */
 .price-tag {
   color: #ff4d4f;

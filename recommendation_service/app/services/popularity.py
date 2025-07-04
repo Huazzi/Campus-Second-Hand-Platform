@@ -29,24 +29,34 @@ def get_popular_recommendations(
             query = query.filter(Good.category_id == category_id)
             
         # 计算热度分数 = 2*view_count + 3*inquiry_count
-        # 后续可以增加收藏数、订单数等指标
-        query = query.order_by(desc(2 * Good.view_count + 3 * Good.inquiry_count))
+        # 使用COALESCE处理NULL值，确保计算正确
+        heat_score = func.coalesce(Good.view_count, 0) * 2 + func.coalesce(Good.inquiry_count, 0) * 3
+        query = query.order_by(desc(heat_score))
         
         # 获取热门商品
         popular_goods = query.offset(offset).limit(limit).all()
         
         # 转换为响应格式
-        result = [
-            RecommendedGood(
-                id=good.id,
-                goodname=good.goodname,
-                price=float(good.price),
-                description=good.description,
-                image=good.image,
-                view_count=good.view_count,
-                category_id=good.category_id
-            ) for good in popular_goods
-        ]
+        result = []
+        for good in popular_goods:
+            # 使用goods表的collect_count字段，避免实时COUNT查询
+            collect_count = getattr(good, 'collect_count', 0) or 0
+
+            # 调试日志：打印商品数据
+            logger.info(f"商品数据 - ID:{good.id}, 名称:{good.goodname}, 浏览次数:{good.view_count}, 收藏次数:{collect_count}")
+
+            result.append(
+                RecommendedGood(
+                    id=good.id,
+                    goodname=good.goodname,
+                    price=float(good.price),
+                    description=good.description,
+                    image=good.image,
+                    view_count=good.view_count or 0,  # 确保不返回None
+                    category_id=good.category_id,
+                    collect=collect_count
+                )
+            )
         
         return result
         
@@ -78,17 +88,26 @@ def get_new_arrivals(
         new_goods = query.offset(offset).limit(limit).all()
         
         # 转换为响应格式
-        result = [
-            RecommendedGood(
-                id=good.id,
-                goodname=good.goodname,
-                price=float(good.price),
-                description=good.description,
-                image=good.image,
-                view_count=good.view_count,
-                category_id=good.category_id
-            ) for good in new_goods
-        ]
+        result = []
+        for good in new_goods:
+            # 使用goods表的collect_count字段，避免实时COUNT查询
+            collect_count = getattr(good, 'collect_count', 0) or 0
+
+            # 调试日志：打印商品数据
+            logger.info(f"新品数据 - ID:{good.id}, 名称:{good.goodname}, 浏览次数:{good.view_count}, 收藏次数:{collect_count}")
+
+            result.append(
+                RecommendedGood(
+                    id=good.id,
+                    goodname=good.goodname,
+                    price=float(good.price),
+                    description=good.description,
+                    image=good.image,
+                    view_count=good.view_count or 0,  # 确保不返回None
+                    category_id=good.category_id,
+                    collect=collect_count
+                )
+            )
         
         return result
         

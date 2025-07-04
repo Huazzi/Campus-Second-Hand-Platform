@@ -1,58 +1,130 @@
-<!--pages/add_good/add_good.wxml-->
-<view>
+<view class='container'>
   <form bindsubmit='addGood'>
-    <view class='title'>
-      <input name="isbn" placeholder='ISBN'></input>
-      <input name="goodName" placeholder='商品名/品类/'></input>
-      <view class='divide_line'></view>
-      <textarea name="description" placeholder='描述一下书名的细节或故事\n(也请把联系方式写在这里)'></textarea>
-      <image wx:for='{{goodImgs}}' src='{{item}}' style='width:150rpx;height:150rpx;margin-left:16rpx'></image>
-      <image src='/image/plus.png' bindtap='chooseImg' style='width:150rpx;height:150rpx;margin-left:16rpx;'></image>
-      <view class='divide_line'></view>
-
-      <view class='form_item'>
-        <text>价格/元</text>
-        <input name="price" type='digit' placeholder='￥0.0' maxlength='4'></input>
+    <view class='form-card'>
+      <!-- 基本信息部分 -->
+      <view class='section'>
+        <text class='section-title'>基本信息</text>
+        <view class='input-group'>
+          <input name="isbn" placeholder='请输入ISBN号' class='input-field'></input>
+          <view class='divider-light'></view>
+          <input name="goodName" placeholder='商品名称/品类' class='input-field'></input>
+        </view>
       </view>
-      <view class='divide_line'></view>
-
-      <view class='form_item'>
-        <text>原价/元</text>
-        <input name="foreprice" type='digit' placeholder='￥0.0' maxlength='4' style='float:left'></input>
+      
+      <!-- 商品描述部分 -->
+      <view class='section'>
+        <text class='section-title'>商品描述</text>
+        <view class='input-group'>
+          <textarea name="description" 
+                    placeholder='描述商品细节或分享您与它的故事...\n(建议留下联系方式)' 
+                    class='textarea-field'
+                    maxlength='100'
+                    bindinput="onDescriptionInput"></textarea>
+          <view class='char-counter'>{{descriptionLength}}/100</view>
+          <view class='divider-light'></view>
+        </view>
       </view>
-      <view class='divide_line'></view>
-
-      <view class='form_item'>
-        <text>商品分类</text>
-        <picker bindchange='changeCatagory' mode='selector' value='{{index}}' range='{{catagoryList}}'><view class="picker">
-      {{catagoryList[index]}}
+      
+      <!-- 图片上传部分 -->
+      <view class='section'>
+        <text class='section-title'>上传图片（最多9张）</text>
+        <view class='image-uploader'>
+          <block wx:for='{{goodImgs}}' wx:key='*this'>
+            <view class='image-preview'>
+              <image src='{{item}}' class='preview-image'></image>
+              <image src='/image/close.png' bindtap='removeImage' data-index='{{index}}' class='remove-icon'></image>
+            </view>
+          </block>
+          <view class='upload-btn' bindtap='chooseImg' wx:if='{{goodImgs.length < 9}}'>
+            <image src='/image/plus.png' class='plus-icon'></image>
+            <text>添加图片</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 价格信息部分 -->
+      <view class='section'>
+        <text class='section-title'>价格信息</text>
+        <view class='form-item'>
+          <text class='item-label'>售价</text>
+          <view class='price-input'>
+            <text class='currency-symbol'>¥</text>
+            <input name="price" type='digit' placeholder='0.00' maxlength='4' class='input-price'></input>
+          </view>
+        </view>
+        <view class='divider'></view>
+        
+        <view class='form-item'>
+          <text class='item-label'>原价</text>
+          <view class='price-input'>
+            <text class='currency-symbol'>¥</text>
+            <input name="foreprice" type='digit' placeholder='0.00' maxlength='4' class='input-price'></input>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 商品详情部分 -->
+      <view class='section'>
+        <text class='section-title'>商品详情</text>
+        <view class='form-item'>
+          <text class='item-label'>商品分类</text>
+          <picker bindchange='changeCatagory' mode='selector' value='{{index}}' range='{{catagoryList}}'>
+            <view class='picker'>
+              {{catagoryList[index] || '请选择分类'}}
+              <text class='arrow-icon'>›</text>
+            </view>
+          </picker>
+        </view>
+        <view class='divider'></view>
+        
+        <view class='form-item'>
+          <text class='item-label'>商品成色</text>
+          <picker bindchange='changeCondition' mode='selector' value='{{conditionIndex}}' range='{{conditionList}}'>
+            <view class='picker'>
+              {{conditionList[conditionIndex] || '请选择成色'}}
+              <text class='arrow-icon'>›</text>
+            </view>
+          </picker>
+        </view>
+        <view class='divider'></view>
+        
+        <view class='form-item'>
+          <text class='item-label'>功能状态</text>
+          <picker bindchange='changeFunctionStatus' mode='selector' value='{{functionStatusIndex}}' range='{{functionStatusList}}'>
+            <view class='picker'>
+              {{functionStatusList[functionStatusIndex] || '请选择状态'}}
+              <text class='arrow-icon'>›</text>
+            </view>
+          </picker>
+        </view>
+        <view class='divider'></view>
+        
+        <view class='form-item'>
+          <text class='item-label'>购买时间</text>
+          <picker bindchange='changeBuyTime' mode='date' value='{{buyTime}}'>
+            <view class='picker'>
+              {{buyTime || '请选择日期'}}
+              <text class='arrow-icon'>›</text>
+            </view>
+          </picker>
+        </view>
+        <view class='divider'></view>
+        
+        <view class='form-item'>
+          <text class='item-label'>交易方式</text>
+          <picker bindchange='changeTradeMethod' mode='selector' value='{{tradeMethodIndex}}' range='{{tradeMethodList}}'>
+            <view class='picker'>
+              {{tradeMethodList[tradeMethodIndex] || '请选择交易方式'}}
+              <text class='arrow-icon'>›</text>
+            </view>
+          </picker>
+        </view>
+      </view>
     </view>
-        </picker>
-
-      </view>
-      <view class='divide_line'></view>
-      <view class='form_item'>
-        <text>出版社</text>
-        <input name="chubanshe"></input>
-      </view>
-      <view class='divide_line'></view>
-      <view class='form_item'>
-        <text>作者</text>
-        <input name="author"></input>
-      </view>
-       <view class='form_item'>
-        <text>出版时间</text>
-        <input name="chubantime"></input>
-      </view>
-      <view class='divide_line'></view>
-      <view class='form_item'>
-        <text>交易方式</text>
-        <input name="method"></input>
-      </view>
+    
+    <!-- 提交按钮 -->
+    <view class='submit-area'>
+      <button form-type='submit' class='submit-btn'>发布商品</button>
     </view>
-    <view class='divide_line'></view>
-
-    <view id='fill'></view>
-    <button form-type='submit'>确定发布</button>
   </form>
 </view>

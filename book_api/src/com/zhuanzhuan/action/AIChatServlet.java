@@ -17,7 +17,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.zhuanzhuan.dao.AIChatDaoImpl;
 import com.zhuanzhuan.model.AIChat;
-import com.zhuanzhuan.util.AIService;
+import com.zhuanzhuan.util.HttpUtil;
 import com.zhuanzhuan.util.DaoFactory;
 
 /**
@@ -32,7 +32,8 @@ public class AIChatServlet extends HttpServlet {
     super();
   }
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
     response.setContentType("application/json;charset=utf-8");
     response.setHeader("Access-Control-Allow-Origin", "*");
     PrintWriter writer = response.getWriter();
@@ -40,8 +41,17 @@ public class AIChatServlet extends HttpServlet {
     String type = request.getParameter("type");
 
     if ("history".equals(type)) {
+      String userIdParam = request.getParameter("userId");
+
+      // 参数校验
+      if (userIdParam == null || userIdParam.trim().isEmpty() || "undefined".equals(userIdParam)) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        writer.print("{\"error\":\"userId parameter is required\"}");
+        return;
+      }
+
       try {
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        int userId = Integer.parseInt(userIdParam);
         AIChatDaoImpl aiChatDao = DaoFactory.getAIChatDao();
         List<AIChat> chatHistory = aiChatDao.loadByUserId(userId);
 
@@ -49,14 +59,16 @@ public class AIChatServlet extends HttpServlet {
         for (AIChat chat : chatHistory) {
           jsonArray.add(chat.toJson());
         }
-
         writer.print(jsonArray.toString());
+
+      } catch (NumberFormatException e) {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        writer.print("{\"error\":\"userId must be a number\"}");
       } catch (Exception e) {
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        writer.print("{\"error\":\"Server error\"}");
         e.printStackTrace();
-        writer.print("[]");
       }
-    } else {
-      writer.print("{\"error\":\"Invalid request type\"}");
     }
   }
 
@@ -85,7 +97,9 @@ public class AIChatServlet extends HttpServlet {
         AIChat userQuestion = new AIChat(userId, question, "", new Timestamp(System.currentTimeMillis()), false);
         aiChatDao.add(userQuestion);
 
-        String answer = AIService.getAnswer(question);
+        // 调用AI服务获取回答
+        // 这里HttpUtil.sendPost方法会调用AI服务并返回回答
+        String answer = HttpUtil.sendPost("http://localhost:8001/api/v1/chat", "{\"question\": \"" + question + "\"}");
 
         AIChat aiAnswer = new AIChat(userId, question, answer, new Timestamp(System.currentTimeMillis()), true);
         aiChatDao.add(aiAnswer);

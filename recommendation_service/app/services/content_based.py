@@ -5,7 +5,8 @@ from typing import List, Dict, Tuple
 import logging
 from datetime import datetime, timedelta
 
-from app.models import Good, Category, ProductSimilarity, UserView, UserPreference
+from app.models import Good, Category, ProductSimilarity, UserView, UserPreference, Collect
+from sqlalchemy import func
 from app.schemas import RecommendedGood
 
 logger = logging.getLogger(__name__)
@@ -74,18 +75,27 @@ def get_content_based_recommendations(
         recommendations = query.offset(offset).limit(limit).all()
         
         # 7. 转换为响应格式
-        result = [
-            RecommendedGood(
-                id=item.id,
-                goodname=item.goodname,
-                price=float(item.price),
-                description=item.description,
-                image=item.image,
-                view_count=item.view_count,
-                category_id=item.category_id,
-                similarity_score=None  # 在基础版本中不计算相似度分数
-            ) for item in recommendations
-        ]
+        result = []
+        for item in recommendations:
+            # 使用goods表的collect_count字段，避免实时COUNT查询
+            collect_count = getattr(item, 'collect_count', 0) or 0
+
+            # 调试日志：打印商品数据
+            logger.info(f"内容推荐数据 - ID:{item.id}, 名称:{item.goodname}, 浏览次数:{item.view_count}, 收藏次数:{collect_count}")
+
+            result.append(
+                RecommendedGood(
+                    id=item.id,
+                    goodname=item.goodname,
+                    price=float(item.price),
+                    description=item.description,
+                    image=item.image,
+                    view_count=item.view_count or 0,  # 确保不返回None
+                    category_id=item.category_id,
+                    similarity_score=None,  # 在基础版本中不计算相似度分数
+                    collect=collect_count
+                )
+            )
         
         return result
         

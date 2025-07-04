@@ -17,11 +17,11 @@
         <image class="goods-image" src="{{item.images[0]}}" mode="aspectFill"></image>
         <view class="goods-info">
           <view class="goods-name">{{item.goodName}}</view>
-          <view class="goods-price">¥{{item.price}}</view>
+          <view class="goods-price">{{item.price}}</view>
           <view class="goods-desc">{{item.description}}</view>
           <view class="goods-stats">
-            <text class="views">{{item.view_msg}}次浏览</text>
-            <text class="collect">{{item.collect}}人收藏</text>
+            <text class="views">{{item.viewCount || 0}}次浏览</text>
+            <text class="collect">{{item.collect || 0}}人收藏</text>
           </view>
         </view>
       </view>

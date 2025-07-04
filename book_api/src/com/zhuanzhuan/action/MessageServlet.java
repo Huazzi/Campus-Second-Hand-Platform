@@ -148,10 +148,18 @@ public class MessageServlet extends HttpServlet {
 			int status = -1;
 			int receiveid = 0;
 			try {
-				status = Integer.parseInt(request.getParameter("status"));
-				receiveid = Integer.parseInt(request.getParameter("receiveid"));
-			} catch (Exception e) {
-				e.printStackTrace();
+				String statusParam = request.getParameter("status");
+				String receiveidParam = request.getParameter("receiveid");
+
+				if (statusParam != null && !statusParam.trim().isEmpty()) {
+					status = Integer.parseInt(statusParam);
+				}
+				if (receiveidParam != null && !receiveidParam.trim().isEmpty()) {
+					receiveid = Integer.parseInt(receiveidParam);
+				}
+			} catch (NumberFormatException e) {
+				writer.print("{'error':'不合法的消息状态或接收者ID'}");
+//				return; // 终止后续逻辑
 			}
 			MessageDaoImpl messageDao = DaoFactory.getMessageDao();
 			List<Message> messages = messageDao.loadWithStatus(receiveid, receiveid, status);

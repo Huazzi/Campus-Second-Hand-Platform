@@ -1,29 +1,178 @@
 /* pages/cover/cover.wxss */
-.outline{
+
+page {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
-  height: 1000rpx;
+  justify-content: space-between;
+  height: 80vh;
+  width: 100%;
+  padding: 60rpx;
+  box-sizing: border-box;
 }
-image{
-  width: 30%;
+
+/* Logo区域 */
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100rpx;
+  
 }
-button{
-  background-color: yellow;
+
+.app-logo {
+  width: 240rpx;
+  height: 240rpx;
+  /* border-radius: 24rpx; */
+  border-radius: 20px;
+  overflow: hidden; /* 确保图片内容也被裁剪为圆角 */
+  box-shadow: 0 12rpx 30rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 40rpx;
+}
+
+/* 主标题样式 - 带定位的装饰星星 */
+.app-title:first-of-type {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: #3a5bff;
+  letter-spacing: 0.5rpx;
+  margin-bottom: 8rpx;
+  position: relative;
+  display: inline-block;
+  padding: 0 40rpx; /* 为星星留出空间 */
+  background: linear-gradient(135deg, #3a5bff 0%, #6889ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 左侧星星（"二"的左上角） */
+.app-title:first-of-type::before {
+  content: '✦';
+  position: absolute;
+  left: 10rpx;
+  top: -12rpx;
+  font-size: 25rpx;
+  color: #6889ff; /* 金色星星 */
+  transform: rotate(-15deg);
+  animation: twinkle-left 1.5s infinite alternate;
+}
+
+/* 右侧星星（"了"的右上角） */
+.app-title:first-of-type::after {
+  content: '✦';
+  position: absolute;
+  right: 10rpx;
+  top: -12rpx;
+  font-size: 25rpx;
+  color: #6889ff; /* 金色星星 */
+  transform: rotate(15deg);
+  animation: twinkle-right 2s infinite alternate;
+}
+
+/* 不对称的星星动画 */
+@keyframes twinkle-left {
+  0% { opacity: 0.6; transform: rotate(-15deg) scale(0.9); }
+  100% { opacity: 1; transform: rotate(-15deg) scale(1.1); }
+}
+
+@keyframes twinkle-right {
+  0% { opacity: 0.7; transform: rotate(15deg) scale(1); }
+  50% { opacity: 1; transform: rotate(25deg) scale(1.2); }
+  100% { opacity: 0.7; transform: rotate(15deg) scale(1); }
+}
+
+/* 副标题样式 - 提升精致度 */
+.app-title:last-of-type {
+  font-size: 30rpx;
+  font-weight: 350;
+  color: #7a7a7a;
+  letter-spacing: 0.3rpx;
+  margin-top: 20rpx;
+  position: relative;
+  padding: 0 40rpx;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* 副标题两边的装饰线 */
+.app-title:last-of-type::before,
+.app-title:last-of-type::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30rpx;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, #d0d0d0);
+}
+
+.app-title:last-of-type::before {
+  left: 0;
+}
+
+.app-title:last-of-type::after {
+  right: 0;
+  background: linear-gradient(90deg, #d0d0d0, transparent);
+}
+
+/* 闪烁动画 */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* 登录按钮区域 */
+.login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 80rpx;
+}
+
+.login-btn {
+  background: linear-gradient(90deg, #3a5bff 0%, #6889ff 100%);
+  color: white !important;
   border-radius: 50rpx;
-  color: black;
-  width: 250rpx;
+  width: 80%;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+  box-shadow: 0 10rpx 30rpx rgba(58, 91, 255, 0.3);
+  margin: 0;
+  transition: all 0.3s ease;
 }
-button::after{
+
+.login-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.login-btn::after {
+  border: none;
   border-radius: 50rpx;
 }
-.protocol{
-  font-size: 32rpx;
-  color: #8a8a8a;
-  margin: 50rpx 0;
+
+/* 协议文字 */
+.protocol {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 50rpx;
+  text-align: center;
 }
-.protocol text{
-  color: blueviolet;
-  text-decoration: underline;
+
+.protocol-link {
+  color: #3a5bff;
+  text-decoration: none;
+  display: inline;
+  padding: 0 8rpx;
 }

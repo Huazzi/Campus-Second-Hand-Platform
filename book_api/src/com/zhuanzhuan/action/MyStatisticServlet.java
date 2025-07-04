@@ -26,14 +26,13 @@ public class MyStatisticServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String userId = request.getParameter("userId");
-		String sql = "SELECT COUNT(*) FROM goods WHERE goodownerid = " + userId + " AND num > 0";
+		String sql1 = "SELECT COUNT(*) FROM goods WHERE goodownerid = " + userId + " AND num > 0";
 		String sql2 = "SELECT COUNT(1) FROM collect WHERE userId = " + userId;
 		
 		String sql3 = "SELECT COUNT(1) FROM orders WHERE userId = " + userId;
 		String sql4 = "SELECT COUNT(1) FROM orders WHERE goodownerid = " + userId;
-		System.out.println(sql);
+		System.out.println(sql1);
 		Connection conn = DBUtil.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -42,13 +41,12 @@ public class MyStatisticServlet extends HttpServlet {
 		int myBought = 0;		//我买到的
 		int mySold = 0;		//卖到的
 		try {
-			ps = conn.prepareStatement(sql);
+			ps = conn.prepareStatement(sql1);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				myReleased = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
