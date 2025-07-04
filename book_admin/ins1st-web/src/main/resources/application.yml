@@ -1,6 +1,6 @@
 #ins1st设置
 ins1st:
-  app-name: 校园二手书管理后台
+  app-name: 贰货来了管理后台
   isRedisSession: false
 server:
   port: 8888
