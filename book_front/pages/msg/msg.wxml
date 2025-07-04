@@ -10,27 +10,24 @@
     <view class="msg-time">24小时在线</view>
   </view>
 
-  <navigator bindlongtap='showMenu' wx:for='{{msgList}}' wx:if='{{item.send.userid == appInstance.globalData.userInfo.userId}}' url='/pages/chat/chat?sendId={{item.receive.userid}}&sendUser={{item.receive.username}}&sendNick={{item.receive.nickname}}&goodId={{item.good.goodId}}'>
+  <navigator bindlongtap='showMenu' wx:for='{{msgList}}' wx:key="id" url='/pages/chat/chat?sendId={{item.send.userid == appInstance.globalData.userInfo.userId ? item.receive.userid : item.send.userid}}&sendUser={{item.send.userid == appInstance.globalData.userInfo.userId ? item.receive.username : item.send.username}}&sendNick={{item.send.userid == appInstance.globalData.userInfo.userId ? item.receive.nickname : item.send.nickname}}&goodId={{item.good.goodId}}'>
     <view class='list_item'>
-      <image src='{{item.receive.head}}' class='head'></image>
-      <view class='detail'>
-        <view>
-          <view>{{item.receive.nickname}}</view>
-          <view>{{content}}</view>
+      <view class='conversation-info'>
+        <image src='{{item.send.userid == appInstance.globalData.userInfo.userId ? item.receive.head : item.send.head}}' class='head'></image>
+        <view class='detail'>
+          <view class='conversation-header'>
+            <view class='nickname'>{{item.send.userid == appInstance.globalData.userInfo.userId ? item.receive.nickname : item.send.nickname}}</view>
+            <view class='time'>{{item.timeStr}}</view>
+          </view>
+          <view class='last-message'>
+            <text class='message-prefix'>{{item.send.userid == appInstance.globalData.userInfo.userId ? '我: ' : ''}}</text>
+            <text class='message-content'>{{item.content}}</text>
+          </view>
         </view>
-        <image src='{{appInstance.globalData.host + "img/goods/" + item.good.images}}' class='goodImg'></image>
       </view>
-    </view>
-  </navigator>
-  <navigator bindlongtap='showMenu' wx:for='{{msgList}}' wx:if='{{item.send.userid != appInstance.globalData.userInfo.userId}}' url='/pages/chat/chat?sendId={{item.send.userid}}&sendUser={{item.send.username}}&sendNick={{item.send.nickname}}&goodId={{item.good.goodId}}'>
-    <view class='list_item'>
-      <image src='{{item.send.head}}' class='head'></image>
-      <view class='detail'>
-        <view>
-          <view>{{item.send.nickname}}</view>
-          <view>{{content}}</view>
-        </view>
+      <view class='good-info'>
         <image src='{{appInstance.globalData.host + "img/goods/" + item.good.images}}' class='goodImg'></image>
+        <view class='good-name'>{{item.good.name}}</view>
       </view>
     </view>
   </navigator>

@@ -1,61 +1,220 @@
 /* pages/chat/chat.wxss */
 
-page{
-  background-color: #eeeeee;
-}
-.opposite,.self{
-  display: flex;
-  margin: 30rpx 20rpx;
-}
-.self{
-  flex-direction: row-reverse;
-}
-.right , .left{
-  display: flex-inline;
-  flex-direction: column;
-  justify-content: space-around;
+/* 页面背景 */
+page {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  min-height: 100vh;
 }
 
-.nickname{
-  color: #212323;
-  font-size: 28rpx;
+/* 消息容器 */
+.opposite,
+.self {
+  display: flex;
+  margin: 24rpx 20rpx;
+  animation: slideInLeft 0.3s ease-out;
 }
-.content{
-  background-color: white;
-  padding: 20rpx;
-  border-radius: 10rpx;
+
+.self {
+  flex-direction: row-reverse;
+  animation: slideInRight 0.3s ease-out;
 }
-.left .content,.left .nickname{
+
+/* 头像样式 */
+.head {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  border: 3rpx solid #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  margin: 0 16rpx;
+  flex-shrink: 0; /* 防止头像被压缩 */
+}
+
+/* 消息限制宽度 - 关键修改 */
+.limit {
+  max-width: calc(100% - 120rpx); /* 减去头像宽度和边距 */
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* 允许自适应宽度 */
+}
+
+/* 左右对齐样式 */
+.right,
+.left {
+  display: flex;
+  flex-direction: column;
+  width: fit-content; /* 关键修改：根据内容自适应宽度 */
+  max-width: 100%;
+}
+
+.left {
+  align-items: flex-end;
+  align-self: flex-end; /* 右对齐 */
+}
+
+.right {
+  align-items: flex-start;
+  align-self: flex-start; /* 左对齐 */
+}
+
+/* 昵称样式 */
+.nickname {
+  font-size: 24rpx;
+  color: #64748b;
+  margin-bottom: 8rpx;
+  font-weight: 500;
+  white-space: nowrap; /* 昵称不换行 */
+}
+
+/* 消息内容样式 - 关键修改 */
+.content {
+  border-radius: 20rpx;
+  padding: 24rpx;
+  font-size: 30rpx;
+  word-wrap: break-word;
+  word-break: break-all;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  line-height: 1.5;
+  margin-left: 16rpx;
+  margin-right: 16rpx;
+  min-width: 80rpx; /* 设置最小宽度 */
+  max-width: 480rpx; /* 设置最大宽度，防止过长 */
+  width: fit-content; /* 根据内容自适应宽度 */
+  display: inline-block; /* 重要：改为inline-block */
+}
+
+/* 对方消息样式 */
+.right .content {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  color: #1e293b;
+  border: 1rpx solid #e2e8f0;
+  margin-left: 16rpx;
+  margin-right: 0;
+}
+
+.right .content::before {
+  content: "";
+  position: absolute;
+  left: -16rpx;
+  top: 20rpx;
+  width: 0;
+  height: 0;
+  border-top: 16rpx solid transparent;
+  border-bottom: 16rpx solid transparent;
+  border-right: 16rpx solid #ffffff;
+}
+
+/* 自己消息样式 */
+.left .content {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  margin-right: 16rpx;
+  margin-left: 0;
+}
+
+.left .content::after {
+  content: "";
+  position: absolute;
+  right: -16rpx;
+  top: 20rpx;
+  width: 0;
+  height: 0;
+  border-top: 16rpx solid transparent;
+  border-bottom: 16rpx solid transparent;
+  border-left: 16rpx solid #10b981;
+}
+
+.left .nickname {
   text-align: right;
 }
-.bottom{
+
+/* 底部输入区域 */
+.bottom {
   position: fixed;
   bottom: 0;
-  display:flex;
-  justify-content: space-between;
-  background-color: white;
+  left: 0;
+  right: 0;
+  display: flex;
   align-items: center;
-  width: 100%;
-}
-#sendBtn{
-  background:none;
-  background-color: yellow;
-  width: 150rpx;
-  margin: 0;
-  padding: 10rpx 0;
-  font-size: 24rpx;
-  border-radius: 0;
-}
-#sendBtn::after{
-  border-radius: 0;
-}
-.limit{
-  width: 516rpx;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 24rpx 20rpx;
+  border-top: 1rpx solid #e2e8f0;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(20rpx);
 }
 
-.time{
-  text-align:center;
-  margin:20rpx 0;
-  color:#909090;
-  font-size:32rpx;
+.bottom input {
+  flex: 1;
+  background-color: #f1f5f9;
+  border: 1rpx solid #e2e8f0;
+  border-radius: 24rpx;
+  padding: 16rpx 20rpx;
+  font-size: 28rpx;
+  color: #334155;
+}
+
+.bottom input:focus {
+  border-color: #10b981;
+  background-color: #ffffff;
+}
+
+/* 发送按钮 */
+#sendBtn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 24rpx;
+  padding: 16rpx 32rpx;
+  margin-left: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(16, 185, 129, 0.3);
+  transition: all 0.2s ease;
+}
+
+#sendBtn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2rpx 8rpx rgba(16, 185, 129, 0.3);
+}
+
+#sendBtn::after {
+  border: none;
+}
+
+/* 时间显示 */
+.time {
+  font-size: 24rpx;
+  color: #94a3b8;
+  text-align: center;
+  margin: 32rpx 0 16rpx 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  backdrop-filter: blur(10rpx);
+  align-self: center;
+}
+
+/* 动画效果 */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

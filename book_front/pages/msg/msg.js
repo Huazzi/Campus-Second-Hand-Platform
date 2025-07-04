@@ -30,14 +30,28 @@ Page({
     let that = this
     let app = getApp()
     this.setData({ appInstance: app })
-    var Url = app.globalData.host + "Messages?receiveid=" + app.globalData.userInfo.userId + "&status=2"
+    // 使用新的分组API获取对话列表
+    var Url = app.globalData.host + "Messages?type=grouped&userId=" + app.globalData.userInfo.userId
     console.log(Url)
     wx.request({
       url: Url,
       dataType: 'json',
       success(res) {
         that.setData({ msgList: res.data })
-        console.log(res.data)
+        console.log("分组对话列表:", res.data)
+      },
+      fail(err) {
+        console.error("获取对话列表失败:", err)
+        // 如果新API失败，回退到旧API
+        var fallbackUrl = app.globalData.host + "Messages?receiveid=" + app.globalData.userInfo.userId + "&status=2"
+        wx.request({
+          url: fallbackUrl,
+          dataType: 'json',
+          success(res) {
+            that.setData({ msgList: res.data })
+            console.log("回退API结果:", res.data)
+          }
+        })
       }
     })
   },

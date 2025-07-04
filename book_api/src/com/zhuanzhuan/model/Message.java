@@ -17,8 +17,10 @@ public class Message {
 	private String content;
 	private Timestamp time;
 	private String title;
-	
-	public Message() {}
+
+	public Message() {
+	}
+
 	public Message(User send, User receive, Good good, int status, String content, Timestamp time,
 			String title) {
 		this.send = send;
@@ -29,62 +31,79 @@ public class Message {
 		this.time = time;
 		this.title = title;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public User getSend() {
 		return send;
 	}
+
 	public void setSend(User send) {
 		this.send = send;
 	}
+
 	public User getReceive() {
 		return receive;
 	}
+
 	public void setReceive(User receive) {
 		this.receive = receive;
 	}
+
 	public Good getGood() {
 		return good;
 	}
+
 	public void setGood(Good good) {
 		this.good = good;
 	}
+
 	public int getStatus() {
 		return status;
 	}
+
 	public void setStatus(int status) {
 		this.status = status;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public Timestamp getTime() {
 		return time;
 	}
+
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
+
 	public String getTimeStr(String pattern) {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		String timeStr = sdf.format(this.time);
 		return timeStr;
 	}
-	
+
 	public JsonObject toJson() {
-		
+
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("id", id);
 		jsonObject.add("send", send.toJson());
@@ -93,6 +112,7 @@ public class Message {
 		jsonObject.addProperty("status", status);
 		jsonObject.addProperty("content", content);
 		jsonObject.addProperty("time", time.toString());
+		jsonObject.addProperty("timeStr", getTimeStr("MM-dd HH:mm"));
 		jsonObject.addProperty("title", title);
 		return jsonObject;
 	}

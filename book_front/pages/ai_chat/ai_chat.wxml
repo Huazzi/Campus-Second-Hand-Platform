@@ -9,7 +9,10 @@
       <view class="limit">
         <view class="right">
           <view class="nickname">AI智能客服</view>
-          <view class="content ai-content" style="float:left">{{item.content}}</view>
+          <view class="content ai-content ai-markdown" style="float:left">
+            <rich-text wx:if="{{item.markdownNodes}}" nodes="{{item.markdownNodes}}"></rich-text>
+            <text wx:else>{{item.content}}</text>
+          </view>
         </view>
       </view>
     </view>
@@ -28,8 +31,12 @@
 
   <!-- 加载中提示 -->
   <view wx:if="{{loading}}" class="loading-container">
-    <view class="loading"></view>
-    <text class="loading-text">小二正在组织语言...</text>
+    <view class="loading-dots">
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+    </view>
+    <text class="loading-text">AI正在思考中...</text>
   </view>
 </scroll-view>
 

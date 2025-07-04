@@ -309,4 +309,69 @@ public class MessageDaoImpl implements IMessageDao {
 		return messages;
 	}
 
+	@Override
+	public List<Message> loadGroupedConversations(int userId) {
+		UserDaoImpl userDao = DaoFactory.getUserDao();
+		GoodDaoImpl goodDao = DaoFactory.getGoodDao();
+
+		List<Message> messages = new ArrayList<Message>();
+		Connection connection = DBUtil.getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		try {
+			// 查询每个对话的最新消息，按对话伙伴和商品分组
+			String sql = "SELECT m1.* FROM message m1 " +
+					"INNER JOIN (" +
+					"    SELECT " +
+					"        CASE " +
+					"            WHEN senduserid = ? THEN reciveuserid " +
+					"            ELSE senduserid " +
+					"        END as other_user_id, " +
+					"        goodid, " +
+					"        MAX(time) as latest_time " +
+					"    FROM message " +
+					"    WHERE senduserid = ? OR reciveuserid = ? " +
+					"    GROUP BY " +
+					"        CASE " +
+					"            WHEN senduserid = ? THEN reciveuserid " +
+					"            ELSE senduserid " +
+					"        END, goodid" +
+					") m2 ON (" +
+					"    (m1.senduserid = ? AND m1.reciveuserid = m2.other_user_id) OR " +
+					"    (m1.reciveuserid = ? AND m1.senduserid = m2.other_user_id)" +
+					") AND m1.goodid = m2.goodid AND m1.time = m2.latest_time " +
+					"ORDER BY m1.time DESC";
+
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setInt(2, userId);
+			preparedStatement.setInt(3, userId);
+			preparedStatement.setInt(4, userId);
+			preparedStatement.setInt(5, userId);
+			preparedStatement.setInt(6, userId);
+
+			resultSet = preparedStatement.executeQuery();
+			Message message = null;
+			while (resultSet.next()) {
+				message = new Message();
+				message.setId(resultSet.getInt("id"));
+				message.setSend(userDao.findById(resultSet.getInt("senduserid")));
+				message.setReceive(userDao.findById(resultSet.getInt("reciveuserid")));
+				message.setContent(resultSet.getString("content"));
+				message.setStatus(resultSet.getShort("status"));
+				message.setTime(resultSet.getTimestamp("time"));
+				message.setTitle(resultSet.getString("title"));
+				message.setGood(goodDao.loadById(resultSet.getInt("goodid")));
+				messages.add(message);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(resultSet);
+			DBUtil.close(preparedStatement);
+			DBUtil.close(connection);
+		}
+		return messages;
+	}
+
 }

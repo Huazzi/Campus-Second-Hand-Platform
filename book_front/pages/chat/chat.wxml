@@ -1,33 +1,36 @@
 <!--pages/chat/chat.wxml-->
-<scroll-view scroll-y='true' style='height:1050rpx;'>
-<block wx:for='{{msgList}}'>
-  <view wx:if='{{index == 0 || item.time - msgList[index - 1].time > 180000}}' class='time'>{{timeList[index]}}</view>
-  <view wx:if='{{item.send.userid == sendUser.userId}}' class='opposite'>
-    <image class='head' src='{{item.send.head}}'></image>
-    <view class='limit'>
-      <view class='right'>
-        <view class='nickname'>{{item.send.nickname}}</view>
-        <view class='content' style='float:left'>{{item.content}}</view>
+<scroll-view scroll-y="true" style="height: 80vh;">
+  <block wx:for="{{msgList}}" wx:key="id">
+    <view wx:if="{{index == 0 || item.time - msgList[index - 1].time > 180000}}" class="time">{{timeList[index]}}</view>
+
+    <!-- 对方消息 -->
+    <view wx:if="{{item.send.userid == sendUser.userId}}" class="opposite">
+      <image class="head" src="{{item.send.head}}"></image>
+      <view class="limit">
+        <view class="right">
+          <view class="nickname">{{item.send.nickname}}</view>
+          <view class="content">{{item.content}}</view>
+        </view>
       </view>
     </view>
-  </view>
 
-  <view wx:else class='self'>
-    <image class='head' src='{{item.send.head}}'></image>
-    <view class='limit'>
-      <view class='left'>
-        <view class='nickname'>{{item.send.nickname}}</view>
-        <view class='content' style='float:right'>{{item.content}}</view>
+    <!-- 自己的消息 -->
+    <view wx:else class="self">
+      <image class="head" src="{{item.send.head}}"></image>
+      <view class="limit">
+        <view class="left">
+          <view class="nickname">{{item.send.nickname}}</view>
+          <view class="content">{{item.content}}</view>
+        </view>
       </view>
     </view>
-  </view>
-</block>
-
-
+  </block>
 </scroll-view>
-<form bindsubmit='sendMsg' id='sendMsg'>
-    <view class='bottom'>
-        <input name="msg" value='{{tempMsg}}' style='margin-left:32rpx;width:350rpx;' placeholder='想跟TA说点什么呢'></input>
-        <button form-type='submit' id='sendBtn'>发送</button>
-    </view>
+
+<!-- 输入框 -->
+<form bindsubmit="sendMsg" id="sendMsg">
+  <view class="bottom">
+    <input name="msg" value="{{tempMsg}}" placeholder="想跟TA说点什么呢"></input>
+    <button form-type="submit" id="sendBtn">发送</button>
+  </view>
 </form>

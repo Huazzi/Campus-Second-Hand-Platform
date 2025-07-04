@@ -143,6 +143,26 @@ public class MessageServlet extends HttpServlet {
 			MessageDaoImpl messageDao = new MessageDaoImpl();
 			messageDao.add(message);
 			writer.print("{'status':'OK'}");
+			// 加载分组的对话列表
+		} else if ("grouped".equals(request.getParameter("type"))) {
+			int userId = 0;
+			try {
+				String userIdParam = request.getParameter("userId");
+				if (userIdParam != null && !userIdParam.trim().isEmpty()) {
+					userId = Integer.parseInt(userIdParam);
+				}
+			} catch (NumberFormatException e) {
+				writer.print("{'error':'不合法的用户ID'}");
+				return;
+			}
+			MessageDaoImpl messageDao = DaoFactory.getMessageDao();
+			List<Message> messages = messageDao.loadGroupedConversations(userId);
+			JsonArray jsonArray = new JsonArray();
+			for (Message m : messages) {
+				jsonArray.add(m.toJson());
+			}
+			System.out.println(jsonArray.toString());
+			writer.print(jsonArray.toString());
 			// 加载每用户每商品第一条消息列表
 		} else {
 			int status = -1;
@@ -159,7 +179,7 @@ public class MessageServlet extends HttpServlet {
 				}
 			} catch (NumberFormatException e) {
 				writer.print("{'error':'不合法的消息状态或接收者ID'}");
-//				return; // 终止后续逻辑
+				// return; // 终止后续逻辑
 			}
 			MessageDaoImpl messageDao = DaoFactory.getMessageDao();
 			List<Message> messages = messageDao.loadWithStatus(receiveid, receiveid, status);

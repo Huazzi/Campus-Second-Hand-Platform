@@ -1,5 +1,6 @@
 // pages/ai_chat/ai_chat.js
 const utils = require('../../utils/util.js')
+const markdown = require('../../utils/markdown.js')
 
 Page({
   /**
@@ -39,8 +40,10 @@ Page({
   onShow: function () {
     // 如果没有聊天记录，显示欢迎消息
     if (this.data.msgList.length === 0) {
+      const welcomeContent = '您好！我是**二货来了**的智能客服助手——**小二**，有什么可以帮您的吗？\n\n您可以询问：\n- 如何发布二手物品\n- 如何联系卖家\n- 如何修改个人信息\n- 平台使用问题'
       const welcomeMsg = {
-        content: '您好！我是二货来了的智能客服助手——小二，有什么可以帮您的吗？',
+        content: welcomeContent,
+        markdownNodes: markdown.parseMarkdown(welcomeContent),
         time: new Date().getTime(),
         isAI: true
       }
@@ -63,8 +66,16 @@ Page({
       dataType: 'json',
       success(res) {
         if (res.data && res.data.length > 0) {
-          that.setData({ 
-            msgList: res.data
+          // 为AI消息添加Markdown解析
+          const processedMsgList = res.data.map(msg => {
+            if (msg.isAI && msg.content) {
+              msg.markdownNodes = markdown.parseMarkdown(msg.content)
+            }
+            return msg
+          })
+
+          that.setData({
+            msgList: processedMsgList
           })
           that.setTimeList()
         }
@@ -119,12 +130,13 @@ Page({
           // 添加AI回答到列表
           const aiMsg = {
             content: res.data.answer,
+            markdownNodes: markdown.parseMarkdown(res.data.answer),
             time: new Date().getTime(),
             isAI: true
           }
-          
+
           const msgList = that.data.msgList.concat(aiMsg)
-          that.setData({ 
+          that.setData({
             msgList: msgList,
             loading: false
           })

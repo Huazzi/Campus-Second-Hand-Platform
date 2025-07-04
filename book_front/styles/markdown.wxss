@@ -1,0 +1,279 @@
+/* 优化后的Markdown样式 */
+
+/* 标题样式 - 增加视觉层次 */
+.md-h1 {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 32rpx 0 20rpx 0;
+  line-height: 1.3;
+  border-bottom: 2rpx solid #e1e4e8;
+  padding-bottom: 12rpx;
+}
+
+.md-h2 {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 28rpx 0 18rpx 0;
+  line-height: 1.3;
+  border-bottom: 1rpx solid #e1e4e8;
+  padding-bottom: 8rpx;
+}
+
+.md-h3 {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 24rpx 0 16rpx 0;
+  line-height: 1.4;
+}
+
+/* 段落样式 - 提升可读性 */
+.md-p {
+  font-size: 30rpx;
+  color: #24292e;
+  line-height: 1.7;
+  margin: 16rpx 0;
+  text-align: justify;
+}
+
+/* 列表样式 - 改善对齐和间距 */
+.md-li {
+  font-size: 30rpx;
+  color: #24292e;
+  line-height: 1.7;
+  margin: 8rpx 0;
+  display: flex;
+  align-items: flex-start;
+  padding-left: 8rpx;
+}
+
+.md-bullet {
+  color: #0366d6;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+  font-weight: 600;
+  font-size: 32rpx;
+  line-height: 1.2;
+}
+
+.md-number {
+  color: #0366d6;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+  font-weight: 600;
+  min-width: 32rpx;
+}
+
+/* 行内样式 - 增强视觉效果 */
+.md-bold {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.md-italic {
+  font-style: italic;
+  color: #586069;
+}
+
+.md-code {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', monospace;
+  background-color: rgba(175, 184, 193, 0.2);
+  color: #e36209;
+  padding: 4rpx 8rpx;
+  border-radius: 6rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: 1rpx solid rgba(175, 184, 193, 0.3);
+}
+
+.md-link {
+  color: #0366d6;
+  text-decoration: none;
+  border-bottom: 1rpx solid transparent;
+  transition: all 0.2s ease;
+}
+
+.md-link:hover {
+  border-bottom-color: #0366d6;
+}
+
+/* 代码块样式 - 更好的视觉效果 */
+.md-code-block {
+  background-color: #f6f8fa;
+  border: 1rpx solid #e1e4e8;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin: 20rpx 0;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', monospace;
+  font-size: 28rpx;
+  color: #24292e;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+/* 引用样式 - 现代化设计 */
+.md-blockquote {
+  border-left: 6rpx solid #0366d6;
+  background-color: #f6f8fa;
+  padding: 20rpx 24rpx;
+  margin: 20rpx 0;
+  font-size: 30rpx;
+  color: #586069;
+  line-height: 1.7;
+  border-radius: 0 8rpx 8rpx 0;
+  position: relative;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.md-blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -8rpx;
+  left: 20rpx;
+  font-size: 48rpx;
+  color: #0366d6;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* 分割线样式 - 更美观 */
+.md-hr {
+  height: 2rpx;
+  background: linear-gradient(to right, transparent, #e1e4e8, transparent);
+  margin: 32rpx 0;
+  border: none;
+}
+
+/* 换行样式 */
+.md-br {
+  height: 16rpx;
+}
+
+/* AI消息中的Markdown容器 */
+.ai-markdown {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/* 在聊天消息中的样式适配 */
+.content .md-h1,
+.content .md-h2,
+.content .md-h3 {
+  color: inherit;
+  margin-top: 20rpx;
+}
+
+.content .md-h1:first-child,
+.content .md-h2:first-child,
+.content .md-h3:first-child {
+  margin-top: 0;
+}
+
+.content .md-p {
+  color: inherit;
+  margin: 12rpx 0;
+}
+
+.content .md-p:first-child {
+  margin-top: 0;
+}
+
+.content .md-p:last-child {
+  margin-bottom: 0;
+}
+
+.content .md-li {
+  color: inherit;
+  margin: 6rpx 0;
+}
+
+.content .md-code-block {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  margin: 16rpx 0;
+}
+
+.content .md-blockquote {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-left-color: rgba(3, 102, 214, 0.6);
+  margin: 16rpx 0;
+}
+
+.content .md-code {
+  background-color: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 针对不同消息类型的样式 */
+.right .content .md-h1,
+.right .content .md-h2,
+.right .content .md-h3,
+.right .content .md-p,
+.right .content .md-li {
+  color: #1e293b;
+}
+
+.left .content .md-h1,
+.left .content .md-h2,
+.left .content .md-h3,
+.left .content .md-p,
+.left .content .md-li {
+  color: #ffffff;
+}
+
+.left .content .md-code-block {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.left .content .md-blockquote {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.left .content .md-code {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.left .content .md-link {
+  color: #a5f3fc;
+}
+
+.left .content .md-bullet,
+.left .content .md-number {
+  color: #a5f3fc;
+}
+
+/* 响应式调整 */
+@media (max-width: 750rpx) {
+  .md-h1 {
+    font-size: 36rpx;
+  }
+  
+  .md-h2 {
+    font-size: 32rpx;
+  }
+  
+  .md-h3 {
+    font-size: 30rpx;
+  }
+  
+  .md-p,
+  .md-li {
+    font-size: 28rpx;
+  }
+  
+  .md-code-block {
+    font-size: 26rpx;
+    padding: 20rpx;
+  }
+}

@@ -1,147 +1,287 @@
 /* pages/ai_chat/ai_chat.wxss */
+@import "../../styles/markdown.wxss";
+
+/* 页面背景 */
+page {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  min-height: 100vh;
+}
+
+/* 消息容器 */
 .opposite {
   display: flex;
-  margin: 30rpx 20rpx;
+  margin: 24rpx 20rpx;
+  animation: slideInLeft 0.3s ease-out;
 }
 
 .self {
   display: flex;
   flex-direction: row-reverse;
-  margin: 30rpx 20rpx;
+  margin: 24rpx 20rpx;
+  animation: slideInRight 0.3s ease-out;
 }
 
+/* 头像样式 */
 .head {
-  width: 80rpx;
-  height: 80rpx;
+  width: 88rpx;
+  height: 88rpx;
   border-radius: 50%;
+  border: 3rpx solid #ffffff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  margin: 0 16rpx;
 }
 
+/* 消息限制宽度 */
 .limit {
-  max-width: 70%;
+  max-width: 75%;
+  display: flex;
+  flex-direction: column;
 }
 
+/* 昵称样式 */
 .nickname {
   font-size: 24rpx;
-  color: #999;
-  margin-bottom: 10rpx;
+  color: #64748b;
+  margin-bottom: 8rpx;
+  font-weight: 500;
 }
 
+/* 消息内容基础样式 */
 .content {
-  max-width: 100%;
-  border-radius: 10rpx;
-  padding: 20rpx;
+  border-radius: 20rpx;
+  padding: 24rpx;
   font-size: 30rpx;
   word-wrap: break-word;
   word-break: break-all;
   box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  line-height: 1.5;
 }
 
+/* AI消息样式 */
 .ai-content {
-  background-color: #f0f9ff;
-  color: #333;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  color: #1e293b;
+  border: 1rpx solid #e2e8f0;
+  margin-left: 16rpx;
 }
 
+.ai-content::before {
+  content: "";
+  position: absolute;
+  left: -16rpx;
+  top: 20rpx;
+  width: 0;
+  height: 0;
+  border-top: 16rpx solid transparent;
+  border-bottom: 16rpx solid transparent;
+  border-right: 16rpx solid #ffffff;
+}
+
+/* 用户消息样式 */
 .user-content {
-  background-color: #7ec0ee;
-  color: #fff;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  margin-right: 16rpx;
 }
 
+.user-content::after {
+  content: "";
+  position: absolute;
+  right: -16rpx;
+  top: 20rpx;
+  width: 0;
+  height: 0;
+  border-top: 16rpx solid transparent;
+  border-bottom: 16rpx solid transparent;
+  border-left: 16rpx solid #3b82f6;
+}
+
+/* 左右对齐样式 */
 .left {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-right: 20rpx;
 }
 
 .right {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 20rpx;
 }
 
+/* 时间显示 */
 .time {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 30rpx 0 0 0;
   font-size: 24rpx;
-  color: #bbb;
+  color: #94a3b8;
+  text-align: center;
+  margin: 32rpx 0 16rpx 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8rpx 16rpx;
+  border-radius: 16rpx;
+  backdrop-filter: blur(10rpx);
+  align-self: center;
 }
 
+/* 底部输入区域 */
 .bottom {
-  box-sizing: border-box;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   display: flex;
-  height: 100rpx;
   align-items: center;
-  background: #fff;
-  border-top: 1rpx solid #eee;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 24rpx 20rpx;
+  border-top: 1rpx solid #e2e8f0;
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(20rpx);
 }
 
-#sendBtn {
-  width: 120rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  margin: 0;
-  padding: 0;
+.bottom input {
+  flex: 1;
+  background-color: #f1f5f9;
+  border: 1rpx solid #e2e8f0;
+  border-radius: 24rpx;
+  padding: 16rpx 20rpx;
   font-size: 28rpx;
-  background-color: #7ec0ee;
-  color: white;
+  color: #334155;
 }
 
+.bottom input:focus {
+  border-color: #3b82f6;
+  background-color: #ffffff;
+}
+
+/* 发送按钮 */
+#sendBtn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 24rpx;
+  padding: 16rpx 32rpx;
+  margin-left: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx rgba(59, 130, 246, 0.3);
+  transition: all 0.2s ease;
+}
+
+#sendBtn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2rpx 8rpx rgba(59, 130, 246, 0.3);
+}
+
+#sendBtn[disabled] {
+  background: #94a3b8;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 快速问题区域 */
 .quick-questions {
   position: fixed;
-  bottom: 100rpx;
+  bottom: 150rpx;
   left: 0;
   right: 0;
-  white-space: nowrap;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(248, 250, 252, 0.9) 100%
+  );
   padding: 20rpx;
-  background-color: #f5f5f5;
-  border-top: 1rpx solid #eee;
+  white-space: nowrap;
+  backdrop-filter: blur(10rpx);
+  border-top: 1rpx solid rgba(226, 232, 240, 0.5);
 }
 
 .quick-question-item {
   display: inline-block;
-  padding: 10rpx 20rpx;
-  margin-right: 20rpx;
-  background-color: #fff;
-  color: #666;
-  font-size: 24rpx;
-  border-radius: 30rpx;
-  border: 1rpx solid #ddd;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  color: #3b82f6;
+  border: 1rpx solid #3b82f6;
+  border-radius: 24rpx;
+  padding: 12rpx 24rpx;
+  margin-right: 16rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  box-shadow: 0 2rpx 8rpx rgba(59, 130, 246, 0.1);
+  transition: all 0.2s ease;
 }
 
+.quick-question-item:active {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  transform: scale(0.95);
+}
+
+/* 动画效果 */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 加载状态 */
 .loading-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20rpx 0;
+  padding: 20rpx;
 }
 
-.loading {
-  width: 40rpx;
-  height: 40rpx;
-  border: 4rpx solid #f3f3f3;
-  border-top: 4rpx solid #7ec0ee;
+.loading-dots {
+  display: flex;
+  gap: 8rpx;
+}
+
+.loading-dot {
+  width: 8rpx;
+  height: 8rpx;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-right: 10rpx;
+  background-color: #3b82f6;
+  animation: loadingPulse 1.4s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.loading-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes loadingPulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .loading-text {
   font-size: 24rpx;
-  color: #999;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  color: #64748b;
+  margin-left: 16rpx;
 }

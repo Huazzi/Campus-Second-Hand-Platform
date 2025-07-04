@@ -29,7 +29,7 @@
 </head>
 <body>
 <h1 class="title">
-    <span>「二货来了」API——启动！！！</span>
+    <span>「贰货来了」API——启动！！！</span>
 </h1>
 </body>
 </html>
